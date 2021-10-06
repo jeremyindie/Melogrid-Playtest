@@ -10,7 +10,14 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private List<GameObject> _tileList;
 
+    [SerializeField]
+    private int  _darkSideTileMapDimention = 3; 
+    
+
     private GameObject[,] _tileArray;
+
+    private float _currentAlphaValue; 
+
     /// <summary>
     /// /////////////////////////////////////////////////////
     /// Copy paste all of this
@@ -40,7 +47,7 @@ public class Grid : MonoBehaviour
     {
         s_instance = this;
         DontDestroyOnLoad(gameObject);
-        _tileArray = new GameObject[7,7];
+        _tileArray = new GameObject[_darkSideTileMapDimention, _darkSideTileMapDimention];
     }
 
     public float GetGridDimention()
@@ -48,41 +55,106 @@ public class Grid : MonoBehaviour
         return _gridDimention;
     }
 
-
-    public void MoveTileArray(Vector3 newPosition)
+    public void ShiftTilesDown()
     {
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0; j < 7; j++)
-            {
-                GameObject temp = _tileArray[i, j];
-                int randI = Mathf.FloorToInt(Random.Range(0, 7));
-                int randJ = Mathf.FloorToInt(Random.Range(0, 7));
-                _tileArray[i, j] = _tileArray[randI, randJ];
-                _tileArray[randI, randJ] = temp;
-                _tileArray[i, j].transform.position = newPosition + (i - 3) * _gridDimention * Vector3.right + (j - 3) * _gridDimention * Vector3.up;
-            }
-        }
+
+    }
+    public void ShiftTilesLeft()
+    {
 
     }
 
+    public void ShiftTilesRight()
+    {
+
+    }
+    public void MoveTileArray(Vector3 newPosition, Vector2 moveDelta)
+    {
+        newPosition -= new Vector3(0.5f, 0.5f, 0f);
+        //moving to the right
+        if(moveDelta.x > 0)
+        {
+            for (int i = _darkSideTileMapDimention - 1; i >= 0; i--)
+            {
+                for (int j = _darkSideTileMapDimention - 1; j >= 0 ; j--)
+                {
+                    if (j == 0 || i == 0)
+                    {
+                        _tileArray[i, j] = Instantiate(_tileList[Mathf.FloorToInt(Random.Range(0, _tileList.Count))]);
+                        SetSpriteToCurrentAlpha(_tileArray[i, j]);
+                    }
+                    else
+                    {
+                        if (j == _darkSideTileMapDimention - 1 || i == _darkSideTileMapDimention - 1)
+                        {
+                            Destroy(_tileArray[i, j]);
+                        }
+                        _tileArray[i, j] = _tileArray[i - 1, j - 1];
+                    }
+                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                }
+            }
+
+        } else
+        {
+            for (int i = 0; i < _darkSideTileMapDimention; i++)
+            {
+                for (int j = _darkSideTileMapDimention - 1; j >= 0; j--)
+                {
+                    if (j == 0 || ((moveDelta.x < 0) && (i == _darkSideTileMapDimention - 1))) {
+                        _tileArray[i, j] = Instantiate(_tileList[Mathf.FloorToInt(Random.Range(0, _tileList.Count))]);
+                        SetSpriteToCurrentAlpha(_tileArray[i, j]);
+                    } else
+                    {
+                        if (j == _darkSideTileMapDimention - 1 || ((moveDelta.x < 0) && (i == 0)))
+                        {
+                            Destroy(_tileArray[i, j]);
+                        }
+                        if ((moveDelta.x < 0))
+                        {
+                            _tileArray[i, j] = _tileArray[i + 1, j - 1];
+                        }
+                        else
+                        {
+                            _tileArray[i, j] = _tileArray[i, j - 1];
+                        }
+                    }
+
+                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                }
+            }
+
+        }
+        
+
+    }
+
+
     public void CreateTileArray(Vector3 centerPosition)
     {
-        for (int i = 0; i < 7; i++)
+        centerPosition -= new Vector3(0.5f, 0.5f, 0f);
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
             {
                 _tileArray[i,j] = Instantiate(_tileList[Mathf.FloorToInt(Random.Range(0, _tileList.Count))]);
-                _tileArray[i, j].transform.position = centerPosition + (i - 3) * _gridDimention * Vector3.right + (j - 3) * _gridDimention * Vector3.up;
+                _tileArray[i, j].transform.position = centerPosition + (i - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
             }
         }
+    }
+
+    public void SetSpriteToCurrentAlpha(GameObject tile)
+    {
+        SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(_currentAlphaValue, _currentAlphaValue, _currentAlphaValue, 1.0f);
+
     }
     public void DarkenSprites(int numberOfWrongMoves)
     {
         numberOfWrongMoves = (numberOfWrongMoves > 4) ? 4 : numberOfWrongMoves;
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
             {
                 SpriteRenderer spriteRenderer = _tileArray[i, j].GetComponent<SpriteRenderer>();
                 Color spriteColour = spriteRenderer.color;
@@ -91,6 +163,7 @@ public class Grid : MonoBehaviour
                 float b = spriteColour.b; 
                 spriteRenderer.color = new Color(r,g,b,(1f - (numberOfWrongMoves / 4f)));*/
                 float factor = 1f - (numberOfWrongMoves / 4f);
+                _currentAlphaValue = factor;
                 spriteRenderer.color = new Color(factor, factor, factor, 1.0f);
 
 
@@ -99,15 +172,16 @@ public class Grid : MonoBehaviour
     }
     public void ResetSpriteAlpha()
     {
-        for (int i = 0; i < 7; i++)
+        _currentAlphaValue = 1.0f; 
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
             {
                 SpriteRenderer spriteRenderer = _tileArray[i, j].GetComponent<SpriteRenderer>();
                 Color spriteColour = spriteRenderer.color;
-                float r = spriteColour.r;
-                float g = spriteColour.g;
-                float b = spriteColour.b;
+                float r = 1.0f;
+                float g = 1.0f;
+                float b = 1.0f;
                 spriteRenderer.color = new Color(r, g, b, 1.0f);
             }
         }

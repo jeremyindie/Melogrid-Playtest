@@ -49,6 +49,7 @@ public class Controller : MonoBehaviour
             {
                 _isLerpingToNewPosition = false;
                 _canMove = true;
+                OnSuccessfulMove(_newPosition - _originalPosition);
                 _originalPosition = _newPosition;
                 return;
             }
@@ -116,13 +117,12 @@ public class Controller : MonoBehaviour
             _isLerpingToNewPosition = true;
             _lerpDistanceToNewPosition = 0.0f;
             _canMove = false;
-            OnSuccessfulMove();
             return true;
         }
         return false;
     }
 
-    protected virtual void OnSuccessfulMove()
+    protected virtual void OnSuccessfulMove(Vector2 moveDelta)
     {
 
     }

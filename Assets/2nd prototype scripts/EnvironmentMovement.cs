@@ -18,7 +18,7 @@ public class EnvironmentMovement : MonoBehaviour
     {
         DistanceForMovement = s_DistanceForMovement;
 
-        DistanceToEnvironment = Vector3.Distance(PlayerReferencePosition.position, gameObject.transform.position);
+        DistanceToEnvironment = Vector3.Distance(PlayerReferencePosition.position - new Vector3(0.5f, 0.5f, 0.0f), gameObject.transform.position);
         LerpRatio = Mathf.Pow((DistanceToEnvironment / DistanceToStand),10);
         /*if (gameObject.transform.position.z - (PlayerReferencePosition.position.z) >= 0)
         {

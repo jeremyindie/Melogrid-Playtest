@@ -46,7 +46,7 @@ public class Player1Controller : Controller
         //if (moveWasSuccessful) IncrementMove();
     }
 
-    protected override void OnSuccessfulMove()
+    protected override void OnSuccessfulMove(Vector2 moveDelta)
     {
         IncrementMove();
     }

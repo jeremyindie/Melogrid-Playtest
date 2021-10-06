@@ -95,9 +95,9 @@ public class Player2Controller : Controller
         }
     }
 
-    protected override void OnSuccessfulMove()
+    protected override void OnSuccessfulMove(Vector2 moveDelta)
     {
-        Grid.Instance.MoveTileArray(transform.position);
+        Grid.Instance.MoveTileArray(transform.position, moveDelta);
     }
     private void MoveInDirection(Directions direction)
     {
@@ -238,7 +238,7 @@ public class Player2Controller : Controller
         //always assuming swaping after 4 moves for prototype
         _melodyNote = 0;
         RandomizeDirections();
-        Grid.Instance.MoveTileArray(transform.position);
+        Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
     }
 
 
