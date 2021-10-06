@@ -112,7 +112,7 @@ public class Controller : MonoBehaviour
     }
     protected bool StartMove()
     {
-        if (_newPosition != Vector3.zero && !Physics2D.OverlapCircle(_newPosition, _movementDistance / 2, _boundary))
+        if (!Physics2D.OverlapCircle(_newPosition, _movementDistance / 3, _boundary))
         {
             _isLerpingToNewPosition = true;
             _lerpDistanceToNewPosition = 0.0f;
