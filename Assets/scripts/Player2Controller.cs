@@ -25,6 +25,9 @@ public class Player2Controller : Controller
     private int _melodyNote;
     private float _timeInMelodyNote;
 
+    [SerializeField]
+    private float _playbackSpeedModifier = 1.0f;
+
     private void Awake()
     {
         _correctMoves = 0;
@@ -201,7 +204,7 @@ public class Player2Controller : Controller
         }
         AudioManager.Instance.Play(clipName);
 
-        yield return new WaitForSeconds(AudioManager.Instance.GetClipLength(clipName));
+        yield return new WaitForSeconds(AudioManager.Instance.GetClipLength(clipName) * _playbackSpeedModifier);
         _isPlayingMelodyNote = false;
         if (_melodyNote + 1 == PlayerTurnManager.Instance.pathList.Count)
         {
