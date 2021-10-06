@@ -227,6 +227,8 @@ public class Player2Controller : Controller
         _leftKeyDirection = dirs[1];
         _rightKeyDirection = dirs[2];
 
+        if (_upKeyDirection == "U" && _leftKeyDirection == "L" && _rightKeyDirection == "R") RandomizeDirections();
+
     }
     public override void StartTurn()
     {

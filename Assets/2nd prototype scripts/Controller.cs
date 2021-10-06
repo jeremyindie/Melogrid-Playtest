@@ -49,8 +49,9 @@ public class Controller : MonoBehaviour
             {
                 _isLerpingToNewPosition = false;
                 _canMove = true;
-                OnSuccessfulMove(_newPosition - _originalPosition);
                 _originalPosition = _newPosition;
+                OnSuccessfulMove(_newPosition - _originalPosition);
+
                 return;
             }
             _lerpDistanceToNewPosition += _movementSpeed * Time.deltaTime;
@@ -117,6 +118,7 @@ public class Controller : MonoBehaviour
             _isLerpingToNewPosition = true;
             _lerpDistanceToNewPosition = 0.0f;
             _canMove = false;
+
             return true;
         }
         return false;

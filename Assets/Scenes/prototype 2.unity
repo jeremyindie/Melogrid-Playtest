@@ -3812,7 +3812,7 @@ MonoBehaviour:
   _boundary:
     serializedVersion: 2
     m_Bits: 8
-  _movementSpeed: 5
+  _movementSpeed: 1
 --- !u!4 &1334580750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1149252511010568019, guid: 0d34ab6e3a8769f4b8fefa5c5a923aed, type: 3}
@@ -4228,7 +4228,7 @@ MonoBehaviour:
   - {fileID: 1080517792}
   - {fileID: 539533683}
   - {fileID: 1805371082}
-  _darkSideTileMapDimention: 3
+  _darkSideTileMapDimention: 5
 --- !u!4 &1475751060 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4549076203054783877, guid: 2a181d5454dc38843ad6fc1ddf4b9d1c, type: 3}
