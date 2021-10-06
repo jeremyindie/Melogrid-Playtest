@@ -8,7 +8,9 @@ public class NarrativeManager : MonoBehaviour
 
     private  Image _image;
     [SerializeField]
-    private Text _text; 
+    private Text _text;
+    [SerializeField]
+    private Text _pressSpaceText;
     [SerializeField]
     private List <string> _forTesting;
     private int _narrativePoint; 
@@ -66,19 +68,23 @@ public class NarrativeManager : MonoBehaviour
     public void TurnOffNarrativeScreen()
     {
         _image.enabled = false;
-        _text.enabled = false; 
+        _text.enabled = false;
+        _pressSpaceText.enabled = false;
     }
 
     public void DisplayCustomScreen(string text)
     {
         _text.enabled = true;
         _image.enabled = true;
+        _pressSpaceText.enabled = true;
+
         _text.text = text; 
     }
     public void DisplayNarrativeElement()
     {
         _text.enabled = true; 
         _image.enabled = true;
+        _pressSpaceText.enabled = true;
         _text.text = _forTesting[_narrativePoint];
     }
 }
