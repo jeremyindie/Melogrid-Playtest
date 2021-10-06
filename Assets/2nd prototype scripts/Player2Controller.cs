@@ -83,7 +83,7 @@ public class Player2Controller : Controller
         
         if (horizontal < 0)
         {
-            MoveInDirection(Directions.UP);
+            MoveInDirection(Directions.LEFT);
         }
         else if (horizontal > 0)
         {
@@ -91,7 +91,7 @@ public class Player2Controller : Controller
         }
         else if (vertical > 0)
         {
-            MoveInDirection(Directions.LEFT);
+            MoveInDirection(Directions.UP);
         }
     }
 
