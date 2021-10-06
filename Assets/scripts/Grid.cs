@@ -91,7 +91,7 @@ public class Grid : MonoBehaviour
                         }
                         _tileArray[i, j] = _tileArray[i - 1, j - 1];
                     }
-                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.up;
                 }
             }
 
