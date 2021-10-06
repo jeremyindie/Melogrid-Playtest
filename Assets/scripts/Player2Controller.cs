@@ -132,7 +132,7 @@ public class Player2Controller : Controller
     }
     protected override bool MoveUp()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance;
+        _newPosition = _originalPosition - Vector3.up * _movementDistance;
         if (StartMove())
         {
             checkMove("U");
@@ -144,7 +144,7 @@ public class Player2Controller : Controller
 
     protected override bool MoveDiagonallyLeftUp()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance - Vector3.right * _movementDistance;
+        _newPosition = _originalPosition - Vector3.up * _movementDistance - Vector3.right * _movementDistance;
         if (StartMove())
         {
             checkMove("L");
@@ -155,7 +155,7 @@ public class Player2Controller : Controller
 
     protected override bool MoveDiagonallyRightUp()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance + Vector3.right * _movementDistance;
+        _newPosition = _originalPosition - Vector3.up * _movementDistance + Vector3.right * _movementDistance;
         if (StartMove())
         {
             checkMove("R");

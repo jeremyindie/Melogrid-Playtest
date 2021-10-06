@@ -53,6 +53,10 @@ public class PlayerTurnManager : MonoBehaviour
         {
             camera.transform.parent = null;
             camera.transform.position = new Vector3(char2.transform.position.x, char2.transform.position.y, camera.transform.position.z);
+            Quaternion rotation = Quaternion.FromToRotation(camera.transform.up, -char2.transform.up);
+            rotation *= Quaternion.Euler(0, 0, 180);
+
+            camera.transform.rotation = rotation;
             camera.transform.parent = char2.transform;
             
             char1.SetActive(false);
@@ -66,6 +70,8 @@ public class PlayerTurnManager : MonoBehaviour
         {
             camera.transform.parent = null;
             camera.transform.position = new Vector3(char1.transform.position.x, char1.transform.position.y, camera.transform.position.z);
+            Quaternion rotation = Quaternion.FromToRotation(camera.transform.up, -char1.transform.up);
+            camera.transform.rotation = rotation;
             camera.transform.parent = char1.transform;
             char1.StartTurn();
             char2.SetActive(false);
