@@ -51,7 +51,7 @@ public class Player1Controller : Controller
         IncrementMove();
     }
 
-    protected override bool MoveUp()
+    protected override bool MoveUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance;
         if (StartMove())
@@ -64,7 +64,7 @@ public class Player1Controller : Controller
 
     }
 
-    protected override bool MoveDiagonallyLeftUp()
+    protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance - Vector3.right * _movementDistance;
         if (StartMove())
@@ -76,7 +76,7 @@ public class Player1Controller : Controller
         return false; 
     }
 
-    protected override bool  MoveDiagonallyRightUp()
+    protected override bool  MoveDiagonallyRightUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance + Vector3.right * _movementDistance;
         if (StartMove())

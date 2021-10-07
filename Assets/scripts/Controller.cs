@@ -23,7 +23,11 @@ public class Controller : MonoBehaviour
     protected Vector3 _originalPosition;
     protected Vector3 _newPosition;
 
-    protected List<string> _moveList; 
+    protected List<string> _moveList;
+
+    protected string _upKeyDirection;
+    protected string _leftKeyDirection;
+    protected string _rightKeyDirection;
 
     protected void Start()
     {
@@ -61,7 +65,7 @@ public class Controller : MonoBehaviour
 
     }
 
-    protected virtual bool MoveUp()
+    protected virtual bool MoveUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance;
         if (StartMove())
@@ -73,7 +77,7 @@ public class Controller : MonoBehaviour
     }
 
 
-    protected virtual bool MoveDiagonallyLeftUp()
+    protected virtual bool MoveDiagonallyLeftUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance - Vector3.right * _movementDistance;
         if (StartMove())
@@ -84,7 +88,7 @@ public class Controller : MonoBehaviour
         return false; 
     }
 
-    protected virtual bool MoveDiagonallyRightUp()
+    protected virtual bool MoveDiagonallyRightUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition + Vector3.up * _movementDistance + Vector3.right * _movementDistance;
         if (StartMove())
@@ -129,9 +133,21 @@ public class Controller : MonoBehaviour
 
     }
 
+    protected void RandomizeDirections()
+    {
+        string[] dirs = PlayerTurnManager.Instance.GetRandomizedDirections();
+        _upKeyDirection = dirs[0];
+        _leftKeyDirection = dirs[1];
+        _rightKeyDirection = dirs[2];
+    }
 
     public void SetActive(bool isActive)
     {
         _isActive = isActive;
+    }
+
+    public float GetMovementSpeed()
+    {
+        return 1 / _movementSpeed;
     }
 }

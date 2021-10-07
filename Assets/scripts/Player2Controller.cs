@@ -12,9 +12,6 @@ public class Player2Controller : Controller
         RIGHT
     };
 
-    private string _upKeyDirection;
-    private string _leftKeyDirection;
-    private string _rightKeyDirection;
     //private Directions _downKeyDirection;
 
     private int _correctMoves;
@@ -83,12 +80,12 @@ public class Player2Controller : Controller
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         _newPosition = Vector3.zero;
-        
-        if (horizontal < 0)
+        //minus sign in front because player is moving vertically downward on the screen
+        if (-horizontal < 0)
         {
             MoveInDirection(Directions.LEFT);
         }
-        else if (horizontal > 0)
+        else if (-horizontal > 0)
         {
             MoveInDirection(Directions.RIGHT);
         }
@@ -133,7 +130,7 @@ public class Player2Controller : Controller
         }
         return _upKeyDirection;
     }
-    protected override bool MoveUp()
+    protected override bool MoveUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition - Vector3.up * _movementDistance;
         if (StartMove())
@@ -145,7 +142,7 @@ public class Player2Controller : Controller
 
     }
 
-    protected override bool MoveDiagonallyLeftUp()
+    protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition - Vector3.up * _movementDistance - Vector3.right * _movementDistance;
         if (StartMove())
@@ -156,7 +153,7 @@ public class Player2Controller : Controller
         return false;
     }
 
-    protected override bool MoveDiagonallyRightUp()
+    protected override bool MoveDiagonallyRightUp(bool isMovingForward = true)
     {
         _newPosition = _originalPosition - Vector3.up * _movementDistance + Vector3.right * _movementDistance;
         if (StartMove())
@@ -171,7 +168,7 @@ public class Player2Controller : Controller
 
     private void checkMove(string move)
     {
-        if (GetAdjustedDirection(PlayerTurnManager.Instance.pathList[_correctMoves]) == move)
+        if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == move)
         {
             _correctMoves++;
             _moveList.Add(move);
@@ -187,7 +184,7 @@ public class Player2Controller : Controller
 
     IEnumerator PlayMelodyNote(int indexOfDirection)
     {
-        string direction = GetAdjustedDirection(PlayerTurnManager.Instance.pathList[indexOfDirection]);
+        string direction = GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[indexOfDirection]);
         string clipName = "";
 
         switch (direction)
@@ -206,7 +203,7 @@ public class Player2Controller : Controller
 
         yield return new WaitForSeconds(AudioManager.Instance.GetClipLength(clipName) * _playbackSpeedModifier);
         _isPlayingMelodyNote = false;
-        if (_melodyNote + 1 == PlayerTurnManager.Instance.pathList.Count)
+        if (_melodyNote + 1 == PlayerTurnManager.Instance.GetPathlist().Count)
         {
             _isPlayingMelody = false;
             _canMove = true;
@@ -216,23 +213,7 @@ public class Player2Controller : Controller
     }
 
 
-    private void RandomizeDirections()
-    {
-        string [] dirs = { "U", "L", "R" };
-        for (int i = 0; i < 3; i++)
-        {
-            string temp = dirs[i];
-            int randomLoc = Mathf.FloorToInt(Random.Range(0, 3));
-            dirs[i] = dirs[randomLoc];
-            dirs[randomLoc] = temp;
-        }
-        _upKeyDirection = dirs[0];
-        _leftKeyDirection = dirs[1];
-        _rightKeyDirection = dirs[2];
-
-        if (_upKeyDirection == "U" && _leftKeyDirection == "L" && _rightKeyDirection == "R") RandomizeDirections();
-
-    }
+    
     public override void StartTurn()
     {
         _correctMoves = 0;
