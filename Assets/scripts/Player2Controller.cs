@@ -36,6 +36,9 @@ public class Player2Controller : Controller
     [SerializeField]
     private Sprite _uiSuccess;
 
+    [SerializeField]
+    private bool _enableUICircles = false; 
+
     private void Awake()
     {
         _correctMoves = 0;
@@ -211,8 +214,12 @@ public class Player2Controller : Controller
     {
         //if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == GetAdjustedDirection( move ))
         if (PlayerTurnManager.Instance.GetPathlist()[_correctMoves] == GetAdjustedDirection(move))
+
         {
-            _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
+            if (_enableUICircles)
+            {
+                _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
+            }
             _correctMoves++;
             //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
             _moveList.Add(move);
@@ -282,11 +289,24 @@ public class Player2Controller : Controller
         _melodyNote = 0;
         RandomizeDirections();
         UIManager.Instance.SetUIText("Listen to the Melody");
-        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        if (_enableUICircles)
         {
-            _uiForCheckingTheMoves[i].enabled = true;
-            _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
+            for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+            {
+                _uiForCheckingTheMoves[i].enabled = true;
+                _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
+            }
+        } else
+        {
+            for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+            {
+                _uiForCheckingTheMoves[i].enabled = false;
+               //_uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
+            }
+
         }
+
+       
         //Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
     }
 
