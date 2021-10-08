@@ -94,12 +94,12 @@ public class Player2Controller : Controller
         float vertical = Input.GetAxisRaw("Vertical");
         _newPosition = Vector3.zero;
         //minus sign in front because player is moving vertically downward on the screen
-        if (-horizontal < 0 && !_horizontalKeyDown)
+        if (horizontal < 0 && !_horizontalKeyDown)
         {
             MoveInDirection(Directions.LEFT);
             _horizontalKeyDown = true;
         }
-        else if (-horizontal > 0 && !_horizontalKeyDown)
+        else if (horizontal > 0 && !_horizontalKeyDown)
         {
             MoveInDirection(Directions.RIGHT);
             _horizontalKeyDown = true;
@@ -170,7 +170,7 @@ public class Player2Controller : Controller
 
     protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
     {
-        _newPosition = _originalPosition - Vector3.up * _movementDistance - Vector3.right * _movementDistance;
+        _newPosition = _originalPosition - Vector3.up * _movementDistance + Vector3.right * _movementDistance;
         if (StartMove())
         {
             checkMove("L");
@@ -181,7 +181,7 @@ public class Player2Controller : Controller
 
     protected override bool MoveDiagonallyRightUp(bool isMovingForward = true)
     {
-        _newPosition = _originalPosition - Vector3.up * _movementDistance + Vector3.right * _movementDistance;
+        _newPosition = _originalPosition - Vector3.up * _movementDistance - Vector3.right * _movementDistance;
         if (StartMove())
         {
             checkMove("R");
@@ -203,6 +203,7 @@ public class Player2Controller : Controller
 
         } else
         {
+            Debug.Log(PlayerTurnManager.Instance.GetPathlist()[_correctMoves] + " != " + GetAdjustedDirection(move) + " unadjusted move " + move);
             _wrongMoves++;
             Grid.Instance.DarkenSprites(_wrongMoves);
             AudioManager.Instance.Play("WrongSound");
