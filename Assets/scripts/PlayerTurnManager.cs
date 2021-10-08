@@ -64,7 +64,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(time);
-        _greyLady.SetPosition(_char2.transform.position);
+        _greyLady.SetPosition(_char2.transform.position + _char2.transform.up);
         //_greyLady.transform.position = _char2.transform.position;
         //_greyLady.transform.rotation = _char2.transform.rotation;
 

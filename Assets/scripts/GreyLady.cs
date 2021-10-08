@@ -8,10 +8,11 @@ public class GreyLady : Controller
     private enum MovingDirections { LEFT, LEFT_RETURN, UP, UP_RETURN, RIGHT, RIGHT_RETURN};
     private MovingDirections _currentMovementDirection;
     private bool _isMoving;
-
+    private SpriteRenderer _spriteRenderer; 
     private void Awake()
     {
         _originalPosition = transform.position;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -65,6 +66,7 @@ public class GreyLady : Controller
     {
         if (_currentMovementDirection == MovingDirections.UP)
         {
+            _spriteRenderer.enabled = false;
             PlayerTurnManager.Instance.ChangeTurn();
         }
 
@@ -149,5 +151,6 @@ public class GreyLady : Controller
         Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
         _currentMovementDirection = MovingDirections.UP;
         _canMove = true;
+        _spriteRenderer.enabled = true;
     }
 }

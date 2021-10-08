@@ -76,7 +76,7 @@ public class Player2Controller : Controller
             {
                 EnterUIScreen();
                 _playerHasLost = true;
-                NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King\nPress Space to Restart");
+                NarrativeManager.Instance.DisplayCustomScreen("Press Space to Restart");
                 //temporary 
                 //_wrongMoves = 0; 
                 //gingerbread House!
