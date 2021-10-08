@@ -63,10 +63,11 @@ public class Player2Controller : Controller
             else if (_wrongMoves >= 4)
             {
                 EnterUIScreen();
-                //temporary 
-                _wrongMoves = 0; 
+                _playerHasLost = true;
                 NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King");
-             //gingerbread House!
+                //temporary 
+                //_wrongMoves = 0; 
+                //gingerbread House!
             }
         }
        
@@ -77,21 +78,34 @@ public class Player2Controller : Controller
     }
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         _newPosition = Vector3.zero;
         //minus sign in front because player is moving vertically downward on the screen
-        if (-horizontal < 0)
+        if (-horizontal < 0 && !_horizontalKeyDown)
         {
             MoveInDirection(Directions.LEFT);
+            _horizontalKeyDown = true;
         }
-        else if (-horizontal > 0)
+        else if (-horizontal > 0 && !_horizontalKeyDown)
         {
             MoveInDirection(Directions.RIGHT);
+            _horizontalKeyDown = true;
+
         }
-        else if (vertical > 0)
+        else if (vertical > 0 && !_verticalKeyDown)
         {
             MoveInDirection(Directions.UP);
+            _verticalKeyDown = true;
+
+        }
+        if (horizontal == 0)
+        {
+            _horizontalKeyDown = false;
+        }
+        if (vertical == 0)
+        {
+            _verticalKeyDown = false;
         }
     }
 

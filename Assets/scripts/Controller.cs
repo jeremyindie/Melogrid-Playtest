@@ -9,16 +9,23 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private LayerMask _boundary;
 
-    protected bool _inUIScreen; 
-    
-    protected bool _canMove;
-    protected bool _isActive; 
-    private bool _isLerpingToNewPosition;
 
-    protected float _movementDistance;
     [SerializeField]
     private float _movementSpeed;
+    protected float _movementDistance;
+
     private float _lerpDistanceToNewPosition;
+    private bool _isLerpingToNewPosition;
+
+    protected bool _playerHasLost;
+    protected bool _inUIScreen;
+
+    protected bool _canMove;
+    protected bool _isActive;
+
+    protected bool _verticalKeyDown;
+    protected bool _horizontalKeyDown;
+
 
     protected Vector3 _originalPosition;
     protected Vector3 _newPosition;
@@ -34,6 +41,9 @@ public class Controller : MonoBehaviour
         _moveList = new List<string>();
         _movementDistance = Grid.Instance.GetGridDimention();
         _inUIScreen = false;
+        _playerHasLost = false;
+        _horizontalKeyDown = false;
+        _verticalKeyDown = false;
     }
 
     // Update is called once per frame
@@ -44,6 +54,10 @@ public class Controller : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 ExitUIScreen();
+                if (_playerHasLost)
+                {
+                    NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King");
+                }
             }
         }
         else if (!_canMove && _isLerpingToNewPosition)

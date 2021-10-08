@@ -2689,7 +2689,7 @@ MonoBehaviour:
   _boundary:
     serializedVersion: 2
     m_Bits: 24
-  _movementSpeed: 1
+  _movementSpeed: 5
 --- !u!61 &956549515
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2881,6 +2881,7 @@ MonoBehaviour:
   _char2: {fileID: 1312816279}
   _greyLady: {fileID: 1539460879}
   _camera: {fileID: 519420031}
+  ReleaseTheGrey: 0
 --- !u!4 &990980170
 Transform:
   m_ObjectHideFlags: 0
@@ -3811,8 +3812,8 @@ MonoBehaviour:
   _boundary:
     serializedVersion: 2
     m_Bits: 8
-  _movementSpeed: 1
-  _playbackSpeedModifier: 1
+  _movementSpeed: 5
+  _playbackSpeedModifier: 1.5
 --- !u!4 &1334580750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1149252511010568019, guid: 0d34ab6e3a8769f4b8fefa5c5a923aed, type: 3}

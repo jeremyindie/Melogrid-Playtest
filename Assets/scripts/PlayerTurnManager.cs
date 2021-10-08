@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerTurnManager : MonoBehaviour
 {
     private enum TurnState { CHAR1, GREY, CHAR2 }
@@ -200,4 +200,8 @@ public class PlayerTurnManager : MonoBehaviour
         _pathList.Clear();
     }
 
+    public void OnLossRestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

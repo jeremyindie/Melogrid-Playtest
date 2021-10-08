@@ -23,25 +23,39 @@ public class Player1Controller : Controller
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         _newPosition = Vector3.zero;
         //bool moveWasSuccessful = false; 
 
-        if (horizontal < 0)
+        if (horizontal < 0 && !_horizontalKeyDown)
         {
             // moveWasSuccessful = MoveDiagonallyLeftUp();
             MoveDiagonallyLeftUp();
+            _horizontalKeyDown = true;
         }
-        else if (horizontal > 0)
+        else if (horizontal > 0 && !_horizontalKeyDown)
         {
             //moveWasSuccessful = MoveDiagonallyRightUp();
             MoveDiagonallyRightUp();
+            _horizontalKeyDown = true;
+
         }
-        else if (vertical > 0)
+        else if (vertical > 0 && !_verticalKeyDown)
         {
             //moveWasSuccessful = MoveUp();
             MoveUp();
+            _verticalKeyDown = true;
+
+        }
+       
+        if (horizontal == 0)
+        {
+            _horizontalKeyDown = false;
+        }
+        if (vertical == 0)
+        {
+            _verticalKeyDown = false;
         }
         //if (moveWasSuccessful) IncrementMove();
     }
