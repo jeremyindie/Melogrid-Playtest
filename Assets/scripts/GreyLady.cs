@@ -54,9 +54,8 @@ public class GreyLady : Controller
 
                 break;
             case MovingDirections.RIGHT_RETURN:
-                MoveDiagonallyRightUp(false);
                 _currentMovementDirection = MovingDirections.UP;
-                PlayerTurnManager.Instance.ChangeTurn();
+                MoveDiagonallyRightUp(false);
                 break;
 
         }
@@ -64,7 +63,12 @@ public class GreyLady : Controller
 
     protected override void OnSuccessfulMove(Vector2 moveDelta)
     {
-        
+        if (_currentMovementDirection == MovingDirections.UP)
+        {
+            PlayerTurnManager.Instance.ChangeTurn();
+        }
+
+
     }
     private string GetSoundName(string direction)
     {
@@ -100,6 +104,7 @@ public class GreyLady : Controller
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance - direction * Vector3.right * _movementDistance;
         if (StartMove())
         {
+            if (isMovingForward)
             AudioManager.Instance.Play(GetSoundName(_leftKeyDirection));
             return true;
         }
@@ -113,6 +118,7 @@ public class GreyLady : Controller
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance + direction * Vector3.right * _movementDistance;
         if (StartMove())
         {
+            if (isMovingForward)
             AudioManager.Instance.Play(GetSoundName(_rightKeyDirection));
             return true;
 
@@ -120,6 +126,11 @@ public class GreyLady : Controller
         return false;
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        _originalPosition = position;
+        transform.position = position;
+    }
     public override void StartTurn()
     {
         RandomizeDirections();

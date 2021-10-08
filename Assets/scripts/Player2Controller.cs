@@ -197,7 +197,7 @@ public class Player2Controller : Controller
 
     IEnumerator PlayMelodyNote(int indexOfDirection)
     {
-        string direction = GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[indexOfDirection]);
+        string direction = PlayerTurnManager.Instance.GetPathlist()[indexOfDirection];//GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[indexOfDirection]);
         string clipName = "";
 
         switch (direction)

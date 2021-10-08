@@ -59,6 +59,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(time);
+        _greyLady.SetPosition(_char2.transform.position);
         //_greyLady.transform.position = _char2.transform.position;
         //_greyLady.transform.rotation = _char2.transform.rotation;
 
@@ -121,9 +122,10 @@ public class PlayerTurnManager : MonoBehaviour
     {
         //FindObjectOfType<AudioManager>().Play("background");
 
-        Debug.Log("ChaningTurn");
         if (_state == TurnState.CHAR1)
         {
+            Debug.Log("Changing Turn to greylady");
+
             _char1.SetActive(false);
             _char2.SetActive(false);
             StartCoroutine(PrepareGrey(_char1.GetMovementSpeed()));
@@ -131,6 +133,8 @@ public class PlayerTurnManager : MonoBehaviour
         }
         else if (_state == TurnState.GREY)
         {
+            Debug.Log("Changing Turn to player 2");
+
             _char1.SetActive(false);
             _greyLady.SetActive(false);
 
@@ -138,6 +142,8 @@ public class PlayerTurnManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Changing Turn to player 1");
+
             _greyLady.SetActive(false);
             _char2.SetActive(false);
             if (_nextNarrativeReady)
