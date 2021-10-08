@@ -92,7 +92,7 @@ public class GreyLady : Controller
             if (isMovingForward)
             {
                 AudioManager.Instance.Play(GetSoundName(_upKeyDirection));
-                UIManager.Instance.SetText("Up Sound");
+                UIManager.Instance.SetUIText("Up Sound");
             }
             return true;
         }
@@ -110,7 +110,7 @@ public class GreyLady : Controller
             if (isMovingForward)
             {
                 AudioManager.Instance.Play(GetSoundName(_leftKeyDirection));
-                UIManager.Instance.SetText("Left Sound");
+                UIManager.Instance.SetUIText("Left Sound");
             }
             return true;
         }
@@ -127,7 +127,7 @@ public class GreyLady : Controller
             if (isMovingForward)
             {
                 AudioManager.Instance.Play(GetSoundName(_rightKeyDirection));
-                UIManager.Instance.SetText("Right Sound");
+                UIManager.Instance.SetUIText("Right Sound");
             }
             return true;
 

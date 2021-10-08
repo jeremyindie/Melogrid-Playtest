@@ -25,6 +25,8 @@ public class Player2Controller : Controller
     [SerializeField]
     private float _playbackSpeedModifier = 1.0f;
 
+    [SerializeField]
+    private int _numberOfWrongNotesAllowed = 4; 
     private void Awake()
     {
         _correctMoves = 0;
@@ -54,14 +56,23 @@ public class Player2Controller : Controller
                 StartCoroutine(PlayMelodyNote(_melodyNote));
             } else if (_canMove)
             {
-                Move();
+                if (Input.GetKeyDown("space"))
+                {
+                    _isPlayingMelody = true;
+                    _canMove = false;
+                    _isPlayingMelodyNote = false;
+                    _melodyNote = 0;
+                } else
+                {
+                    Move();
+                }
             }
             if (_correctMoves >= 4)
             {
-                UIManager.Instance.EraseText();
+                UIManager.Instance.EraseUIText();
                 PlayerTurnManager.Instance.ChangeTurn();
             }
-            else if (_wrongMoves >= 4)
+            else if (_wrongMoves >= _numberOfWrongNotesAllowed)
             {
                 EnterUIScreen();
                 _playerHasLost = true;
@@ -186,7 +197,7 @@ public class Player2Controller : Controller
         if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == move)
         {
             _correctMoves++;
-            UIManager.Instance.SetText("" + (4 - _correctMoves) + " correct moves left");
+            //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
             _moveList.Add(move);
 
         } else
@@ -195,6 +206,8 @@ public class Player2Controller : Controller
             Grid.Instance.DarkenSprites(_wrongMoves);
             AudioManager.Instance.Play("WrongSound");
         }
+        UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
+
     }
 
     IEnumerator PlayMelodyNote(int indexOfDirection)
@@ -222,7 +235,12 @@ public class Player2Controller : Controller
         {
             _isPlayingMelody = false;
             _canMove = true;
-            UIManager.Instance.SetText("4 correct moves left");
+            UIManager.Instance.SetUIText("4 correct moves left");
+            if (PlayerTurnManager.Instance.GetIsFirstTurn())
+            {
+                UIManager.Instance.SetInputText("Press Space to Listen to Melody Again");
+
+            }
         }
         _melodyNote++;
 
@@ -240,7 +258,7 @@ public class Player2Controller : Controller
         //always assuming swaping after 4 moves for prototype
         _melodyNote = 0;
         RandomizeDirections();
-        UIManager.Instance.SetText("Listen to the Melody");
+        UIManager.Instance.SetUIText("Listen to the Melody");
         //Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
     }
 

@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Text _uiHelperText;
+    [SerializeField]
+    private Text _inputText;
     private static UIManager s_instance;
 
     public static UIManager Instance
@@ -44,13 +46,21 @@ public class UIManager : MonoBehaviour
     {
         
     }
+    public void EraseInputText()
+    {
+        _inputText.text = "";
+    }
 
-    public void EraseText()
+    public void SetInputText(string text)
+    {
+        _inputText.text = text;
+    }
+    public void EraseUIText()
     {
         _uiHelperText.text = "";
     }
 
-    public void SetText(string text)
+    public void SetUIText(string text)
     {
         _uiHelperText.text = text;
     }

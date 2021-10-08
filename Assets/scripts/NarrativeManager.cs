@@ -76,7 +76,7 @@ public class NarrativeManager : MonoBehaviour
         _image.enabled = false;
         _text.enabled = false;
         _pressSpaceText.enabled = false;
-        PlayerTurnManager.Instance.ReleaseTheGrey = true;
+        //PlayerTurnManager.Instance.ReleaseTheGrey = true;
     }
 
     public void DisplayCustomScreen(string text)

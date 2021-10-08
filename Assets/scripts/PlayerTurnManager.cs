@@ -24,8 +24,8 @@ public class PlayerTurnManager : MonoBehaviour
     private static PlayerTurnManager _instance;
 
     private bool _nextNarrativeReady;
-    public bool ReleaseTheGrey;
-    
+    //public bool ReleaseTheGrey;
+    private bool _isFirstTurn; 
     public static PlayerTurnManager Instance
     {
         get
@@ -53,6 +53,7 @@ public class PlayerTurnManager : MonoBehaviour
         _state = TurnState.CHAR1;
         _nextNarrativeReady = false;
         _dirs = new string[3];
+        _isFirstTurn = true;
 
     }
     IEnumerator PrepareGrey(float time)
@@ -133,6 +134,7 @@ public class PlayerTurnManager : MonoBehaviour
         }
         else if (_state == TurnState.GREY)
         {
+
             Debug.Log("Changing Turn to player 2");
 
             _char1.SetActive(false);
@@ -153,7 +155,12 @@ public class PlayerTurnManager : MonoBehaviour
             else
             {
                 StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
-            } 
+            }
+            if (_isFirstTurn)
+            {
+                _isFirstTurn = false;
+                UIManager.Instance.EraseInputText();
+            }
         }
     }
     public void RandomizeDirections()
@@ -176,7 +183,7 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void SetNarrativeReady()
     {
-        ReleaseTheGrey = false;
+        //ReleaseTheGrey = false;
         _nextNarrativeReady = true;
         StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
     }
@@ -235,5 +242,10 @@ public class PlayerTurnManager : MonoBehaviour
     public bool IsPlayerTwosTurn()
     {
         return (_state == TurnState.CHAR2);
+    }
+
+    public bool GetIsFirstTurn()
+    {
+        return _isFirstTurn;
     }
 }
