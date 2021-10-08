@@ -38,21 +38,20 @@ public class GreyLady : Controller
                 MoveUp(true);
                 break;
             case MovingDirections.UP_RETURN:
-                MoveUp(false);
                 _currentMovementDirection = MovingDirections.LEFT;
+                MoveUp(false);
                 break;
             case MovingDirections.LEFT:
-                MoveDiagonallyLeftUp(true);
                 _currentMovementDirection = MovingDirections.LEFT_RETURN;
+                MoveDiagonallyLeftUp(true);
                 break;
             case MovingDirections.LEFT_RETURN:
-                MoveDiagonallyLeftUp(false);
                 _currentMovementDirection = MovingDirections.RIGHT;
+                MoveDiagonallyLeftUp(false);
                 break;
             case MovingDirections.RIGHT:
-                MoveDiagonallyRightUp(true);
                 _currentMovementDirection = MovingDirections.RIGHT_RETURN;
-
+                MoveDiagonallyRightUp(true);
                 break;
             case MovingDirections.RIGHT_RETURN:
                 _currentMovementDirection = MovingDirections.UP;

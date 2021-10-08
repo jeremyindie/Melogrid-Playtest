@@ -26,7 +26,16 @@ public class Player2Controller : Controller
     private float _playbackSpeedModifier = 1.0f;
 
     [SerializeField]
-    private int _numberOfWrongNotesAllowed = 4; 
+    private int _numberOfWrongNotesAllowed = 4;
+
+    [SerializeField]
+    private List<SpriteRenderer> _uiForCheckingTheMoves;
+
+    [SerializeField]
+    private Sprite _uiNotCompleted;
+    [SerializeField]
+    private Sprite _uiSuccess;
+
     private void Awake()
     {
         _correctMoves = 0;
@@ -69,6 +78,10 @@ public class Player2Controller : Controller
             }
             if (_correctMoves >= 4)
             {
+                for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+                {
+                    _uiForCheckingTheMoves[i].enabled = false;
+                }
                 UIManager.Instance.EraseUIText();
                 PlayerTurnManager.Instance.ChangeTurn();
             }
@@ -200,8 +213,11 @@ public class Player2Controller : Controller
             _correctMoves++;
             //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
             _moveList.Add(move);
+            _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
 
-        } else
+
+        }
+        else
         {
             Debug.Log(PlayerTurnManager.Instance.GetPathlist()[_correctMoves] + " != " + GetAdjustedDirection(move) + " unadjusted move " + move);
             _wrongMoves++;
@@ -261,6 +277,11 @@ public class Player2Controller : Controller
         _melodyNote = 0;
         RandomizeDirections();
         UIManager.Instance.SetUIText("Listen to the Melody");
+        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        {
+            _uiForCheckingTheMoves[i].enabled = true;
+            _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
+        }
         //Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
     }
 
