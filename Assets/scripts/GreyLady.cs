@@ -15,7 +15,7 @@ public class GreyLady : Controller
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    public void Start()
     {
         base.Start();
     }
