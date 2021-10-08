@@ -210,10 +210,10 @@ public class Player2Controller : Controller
         //if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == GetAdjustedDirection( move ))
         if (PlayerTurnManager.Instance.GetPathlist()[_correctMoves] == GetAdjustedDirection(move))
         {
+            _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
             _correctMoves++;
             //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
             _moveList.Add(move);
-            _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
 
 
         }
