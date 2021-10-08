@@ -56,7 +56,7 @@ public class Controller : MonoBehaviour
                 ExitUIScreen();
                 if (_playerHasLost)
                 {
-                    NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King");
+                    PlayerTurnManager.Instance.OnLossRestart();
                 }
             }
         }

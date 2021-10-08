@@ -208,8 +208,32 @@ public class PlayerTurnManager : MonoBehaviour
         _pathList.Clear();
     }
 
-    public void OnLossRestartScene()
+    public void OnLossRestart()
     {
+
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public Transform GetPlayerOneTransform()
+    {
+        return _char1.transform;
+    }
+
+    public Transform GetPlayerTwoTransform()
+    {
+        return _char2.transform;
+    }
+    public Transform GetPlayerGreyTransform()
+    {
+        return _greyLady.transform;
+    }
+    public bool IsPlayerOnesTurn()
+    {
+        return (_state == TurnState.CHAR1);
+    }
+    public bool IsPlayerTwosTurn()
+    {
+        return (_state == TurnState.CHAR2);
     }
 }

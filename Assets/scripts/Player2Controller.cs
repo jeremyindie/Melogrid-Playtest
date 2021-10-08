@@ -57,14 +57,15 @@ public class Player2Controller : Controller
                 Move();
             }
             if (_correctMoves >= 4)
-            {                
+            {
+                UIManager.Instance.EraseText();
                 PlayerTurnManager.Instance.ChangeTurn();
             }
             else if (_wrongMoves >= 4)
             {
                 EnterUIScreen();
                 _playerHasLost = true;
-                NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King");
+                NarrativeManager.Instance.DisplayCustomScreen("You Done Lost Your Good Thing Now - BB King\nPress Space to Restart");
                 //temporary 
                 //_wrongMoves = 0; 
                 //gingerbread House!
@@ -185,6 +186,7 @@ public class Player2Controller : Controller
         if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == move)
         {
             _correctMoves++;
+            UIManager.Instance.SetText("" + (4 - _correctMoves) + " correct moves left");
             _moveList.Add(move);
 
         } else
@@ -220,6 +222,7 @@ public class Player2Controller : Controller
         {
             _isPlayingMelody = false;
             _canMove = true;
+            UIManager.Instance.SetText("4 correct moves left");
         }
         _melodyNote++;
 
@@ -237,7 +240,8 @@ public class Player2Controller : Controller
         //always assuming swaping after 4 moves for prototype
         _melodyNote = 0;
         RandomizeDirections();
-        Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
+        UIManager.Instance.SetText("Listen to the Melody");
+        //Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
     }
 
 

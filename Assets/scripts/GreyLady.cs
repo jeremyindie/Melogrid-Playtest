@@ -89,8 +89,11 @@ public class GreyLady : Controller
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance;
         if (StartMove())
         {
-            if (isMovingForward) 
-            AudioManager.Instance.Play(GetSoundName(_upKeyDirection));
+            if (isMovingForward)
+            {
+                AudioManager.Instance.Play(GetSoundName(_upKeyDirection));
+                UIManager.Instance.SetText("Up Sound");
+            }
             return true;
         }
         return false;
@@ -105,7 +108,10 @@ public class GreyLady : Controller
         if (StartMove())
         {
             if (isMovingForward)
-            AudioManager.Instance.Play(GetSoundName(_leftKeyDirection));
+            {
+                AudioManager.Instance.Play(GetSoundName(_leftKeyDirection));
+                UIManager.Instance.SetText("Left Sound");
+            }
             return true;
         }
         return false;
@@ -119,7 +125,10 @@ public class GreyLady : Controller
         if (StartMove())
         {
             if (isMovingForward)
-            AudioManager.Instance.Play(GetSoundName(_rightKeyDirection));
+            {
+                AudioManager.Instance.Play(GetSoundName(_rightKeyDirection));
+                UIManager.Instance.SetText("Right Sound");
+            }
             return true;
 
         }
