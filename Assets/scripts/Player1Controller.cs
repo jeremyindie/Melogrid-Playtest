@@ -14,6 +14,8 @@ public class Player1Controller : Controller
     }
     private void Update()
     {
+
+
         base.Update();
         if (_isActive && _canMove && !_inUIScreen)
         {
@@ -111,10 +113,11 @@ public class Player1Controller : Controller
     public void IncrementMove()
     {
         _moveNumber++;
-        if(_moveNumber >= 4)
+        if (_moveNumber >= 4)
         {
             PlayerTurnManager.Instance.ChangeTurn();
         }
+
     }
     public override void StartTurn()
     {

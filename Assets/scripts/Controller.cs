@@ -54,6 +54,10 @@ public class Controller : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 ExitUIScreen();
+                if (PlayerTurnManager.Instance.IsInNarrativeScreen())
+                {
+                    PlayerTurnManager.Instance.ChangeTurn();
+                }
                 if (_playerHasLost)
                 {
                     PlayerTurnManager.Instance.OnLossRestart();

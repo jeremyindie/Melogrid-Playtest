@@ -194,7 +194,8 @@ public class Player2Controller : Controller
 
     private void checkMove(string move)
     {
-        if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == move)
+        //if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == GetAdjustedDirection( move ))
+        if (PlayerTurnManager.Instance.GetPathlist()[_correctMoves] == GetAdjustedDirection(move))
         {
             _correctMoves++;
             //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");

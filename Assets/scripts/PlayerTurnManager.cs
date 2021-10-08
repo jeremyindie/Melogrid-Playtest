@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerTurnManager : MonoBehaviour
 {
-    private enum TurnState { CHAR1, GREY, CHAR2 }
+    private enum TurnState { CHAR1, GREY, CHAR2, CHAR1_NAR, CHAR2_NAR }
     private TurnState _state;
     [SerializeField]
     private Player1Controller _char1;
@@ -24,8 +24,11 @@ public class PlayerTurnManager : MonoBehaviour
     private static PlayerTurnManager _instance;
 
     private bool _nextNarrativeReady;
+    private bool _inNarrativeScreen; 
+
     //public bool ReleaseTheGrey;
-    private bool _isFirstTurn; 
+    private bool _isFirstTurn;
+
     public static PlayerTurnManager Instance
     {
         get
@@ -54,6 +57,7 @@ public class PlayerTurnManager : MonoBehaviour
         _nextNarrativeReady = false;
         _dirs = new string[3];
         _isFirstTurn = true;
+        _inNarrativeScreen = false;
 
     }
     IEnumerator PrepareGrey(float time)
@@ -77,7 +81,9 @@ public class PlayerTurnManager : MonoBehaviour
         _greyLady.SetActive(true);
         _greyLady.StartTurn();
         Grid.Instance.ResetSpriteAlpha();
+
         _state = TurnState.GREY;
+        
 
     }
     IEnumerator PrepareChar1(float time)
@@ -117,7 +123,14 @@ public class PlayerTurnManager : MonoBehaviour
         _char2.StartTurn();
         Grid.Instance.ResetSpriteAlpha();
         SetPathList(_char1.GetMoveList());
-        _state = TurnState.CHAR2;
+        if (_nextNarrativeReady)
+        {
+            _state = TurnState.CHAR2_NAR;
+        }
+        else
+        {
+            _state = TurnState.CHAR2;
+        }
     }
     public void ChangeTurn()
     {
@@ -125,11 +138,20 @@ public class PlayerTurnManager : MonoBehaviour
 
         if (_state == TurnState.CHAR1)
         {
-            Debug.Log("Changing Turn to greylady");
-
             _char1.SetActive(false);
             _char2.SetActive(false);
+
+
+            Debug.Log("Changing Turn to greylady");
+
             StartCoroutine(PrepareGrey(_char1.GetMovementSpeed()));
+
+
+        } else if (_state == TurnState.CHAR1_NAR)
+        {
+            Debug.Log("Narrative Screen");
+            StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
+            _state = TurnState.CHAR1;
 
         }
         else if (_state == TurnState.GREY)
@@ -142,20 +164,20 @@ public class PlayerTurnManager : MonoBehaviour
 
             StartCoroutine(PrepareChar2(_greyLady.GetMovementSpeed()));
         }
-        else
+        else if (_state == TurnState.CHAR2_NAR)
+        {
+            Debug.Log("Narrative Screen");
+            StartCoroutine(Character2NarrativeMode(_char2.GetMovementSpeed()));
+            _state = TurnState.GREY;
+        } else
         {
             Debug.Log("Changing Turn to player 1");
 
             _greyLady.SetActive(false);
             _char2.SetActive(false);
-            if (_nextNarrativeReady)
-            {
-                StartCoroutine(Character2NarrativeMode(_char2.GetMovementSpeed()));
-            }
-            else
-            {
-                StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
-            }
+           
+            StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
+            
             if (_isFirstTurn)
             {
                 _isFirstTurn = false;
@@ -183,12 +205,16 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void SetNarrativeReady()
     {
+
+        _state = TurnState.CHAR1_NAR;
+        
         //ReleaseTheGrey = false;
         _nextNarrativeReady = true;
-        StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
     }
+
     IEnumerator Character1NarrativeMode(float time)
     {
+        _inNarrativeScreen = true;
         yield return new WaitForSeconds(time);
         NarrativeManager.Instance.DisplayNarrativeElement();
         _char1.EnterUIScreen();
@@ -196,11 +222,13 @@ public class PlayerTurnManager : MonoBehaviour
     }
     IEnumerator Character2NarrativeMode(float time)
     {
+        _inNarrativeScreen = true;
         yield return new WaitForSeconds(time);
         _char2.EnterUIScreen();
         NarrativeManager.Instance.DisplayNarrativeElement();
         _nextNarrativeReady = false;
         StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
+        _camera.transform.rotation *= Quaternion.Euler(0, 0, 180); 
     }
     public void SetPathList(List<string> pL)
     {
@@ -247,5 +275,10 @@ public class PlayerTurnManager : MonoBehaviour
     public bool GetIsFirstTurn()
     {
         return _isFirstTurn;
+    }
+
+    public bool IsInNarrativeScreen()
+    {
+        return _inNarrativeScreen; 
     }
 }
