@@ -57,15 +57,17 @@ public class PlayerTurnManager : MonoBehaviour
     }
     IEnumerator PrepareGrey(float time)
     {
+
         yield return new WaitForSeconds(time);
-        _greyLady.transform.position = _char2.transform.position;
-        _greyLady.transform.rotation = _char2.transform.rotation;
+        //_greyLady.transform.position = _char2.transform.position;
+        //_greyLady.transform.rotation = _char2.transform.rotation;
 
         _camera.transform.parent = null;
         _camera.transform.position = new Vector3(_greyLady.transform.position.x, _greyLady.transform.position.y, _camera.transform.position.z);
         Quaternion rotation = Quaternion.FromToRotation(_camera.transform.up, -_greyLady.transform.up);
         rotation *= Quaternion.Euler(0, 0, 180);
-
+        
+        RandomizeDirections();
         _camera.transform.rotation = rotation;
         _camera.transform.parent = _greyLady.transform;
 
@@ -75,7 +77,6 @@ public class PlayerTurnManager : MonoBehaviour
         Grid.Instance.ResetSpriteAlpha();
         _state = TurnState.GREY;
 
-        RandomizeDirections(); 
     }
     IEnumerator PrepareChar1(float time)
     {

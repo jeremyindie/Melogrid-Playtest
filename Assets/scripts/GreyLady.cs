@@ -9,6 +9,10 @@ public class GreyLady : Controller
     private MovingDirections _currentMovementDirection;
     private bool _isMoving;
 
+    private void Awake()
+    {
+        _originalPosition = transform.position;
+    }
 
     private void Start()
     {
@@ -67,7 +71,6 @@ public class GreyLady : Controller
         switch (direction) {
 
             case "U": return "UpSound";
-                
             case "L": return "LeftSound";
             case "R": return "RightSound";
         }
