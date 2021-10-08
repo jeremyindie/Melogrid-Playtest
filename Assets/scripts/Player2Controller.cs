@@ -189,9 +189,8 @@ public class Player2Controller : Controller
 
         } else
         {
-            //fade 
-            Grid.Instance.DarkenSprites(_wrongMoves);
             _wrongMoves++;
+            Grid.Instance.DarkenSprites(_wrongMoves);
             AudioManager.Instance.Play("WrongSound");
         }
     }

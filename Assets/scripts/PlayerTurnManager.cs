@@ -46,13 +46,14 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        _nextNarrativeReady = false;
-        _dirs = new string[3];
 
     }
     void Start()
     {
         _state = TurnState.CHAR1;
+        _nextNarrativeReady = false;
+        _dirs = new string[3];
+
     }
     IEnumerator PrepareGrey(float time)
     {
