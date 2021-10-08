@@ -12,6 +12,11 @@ public class Player1Controller : Controller
         _moveNumber = 0;
         _originalPosition = transform.position;
     }
+
+    public void Start()
+    {
+        base.Start();
+    }
     private void Update()
     {
 

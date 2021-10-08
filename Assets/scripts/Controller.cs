@@ -122,7 +122,7 @@ public class Controller : MonoBehaviour
         _inUIScreen = true; 
     }
 
-    protected void ExitUIScreen()
+    public void ExitUIScreen()
     {
         _inUIScreen = false;
         Debug.Log("ERE");

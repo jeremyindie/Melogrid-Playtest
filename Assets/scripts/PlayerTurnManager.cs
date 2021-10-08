@@ -230,6 +230,19 @@ public class PlayerTurnManager : MonoBehaviour
         StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
         _camera.transform.rotation *= Quaternion.Euler(0, 0, 180); 
     }
+
+    IEnumerator Character2LOSSScreen(float time)
+    {
+        Start();
+
+
+        _inNarrativeScreen = true;
+        yield return new WaitForSeconds(time);
+        _char2.EnterUIScreen();
+        NarrativeManager.Instance.DisplayCustomScreen("Press Space to Restart");
+        _nextNarrativeReady = false;
+        _camera.transform.rotation *= Quaternion.Euler(0, 0, 180);
+    }
     public void SetPathList(List<string> pL)
     {
         _pathList = pL;
@@ -242,12 +255,17 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _pathList.Clear();
     }
-
+    public void ShowLossScreen()
+    {
+        StartCoroutine(Character2LOSSScreen(_char2.GetMovementSpeed()));
+    }
     public void OnLossRestart()
     {
+        //_char1.transform.position = new Vector3(-0.5f, 0.5f, 0f);
+        _state = TurnState.CHAR2;
+        //ChangeTurn();
+        //StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
 
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public Transform GetPlayerOneTransform()

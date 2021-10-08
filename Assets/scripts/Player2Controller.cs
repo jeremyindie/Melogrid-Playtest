@@ -48,7 +48,7 @@ public class Player2Controller : Controller
 
     }
 
-    private void Start()
+    public void Start()
     {
         Grid.Instance.CreateTileArray(transform.position);
         base.Start();
@@ -87,12 +87,14 @@ public class Player2Controller : Controller
             }
             else if (_wrongMoves >= _numberOfWrongNotesAllowed)
             {
-                EnterUIScreen();
+                for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+                {
+                    _uiForCheckingTheMoves[i].enabled = false;
+                }
+                UIManager.Instance.EraseUIText();
                 _playerHasLost = true;
-                NarrativeManager.Instance.DisplayCustomScreen("Press Space to Restart");
-                //temporary 
-                //_wrongMoves = 0; 
-                //gingerbread House!
+                EnterUIScreen();
+                PlayerTurnManager.Instance.ShowLossScreen();
             }
         }
        
@@ -264,7 +266,10 @@ public class Player2Controller : Controller
 
     }
 
+    public void DisableUI()
+    {
 
+    }
     
     public override void StartTurn()
     {
