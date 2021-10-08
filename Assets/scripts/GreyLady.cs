@@ -34,8 +34,8 @@ public class GreyLady : Controller
         switch (_currentMovementDirection)
         {
             case MovingDirections.UP:
-                MoveUp(true);
                 _currentMovementDirection = MovingDirections.UP_RETURN;
+                MoveUp(true);
                 break;
             case MovingDirections.UP_RETURN:
                 MoveUp(false);
