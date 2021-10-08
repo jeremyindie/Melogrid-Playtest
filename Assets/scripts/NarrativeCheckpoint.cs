@@ -19,10 +19,11 @@ public class NarrativeCheckpoint : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("1");
         NarrativeManager.Instance.SetNarrativePoint(_narrativeIndex);
         PlayerTurnManager.Instance.SetNarrativeReady();
     }
- 
+
 }

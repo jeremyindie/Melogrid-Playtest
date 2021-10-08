@@ -106,7 +106,6 @@ public class Player1Controller : Controller
     {
         _moveNumber = 0;
         _canMove = true;
-
     }
 
 

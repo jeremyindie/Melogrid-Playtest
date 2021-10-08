@@ -23,7 +23,8 @@ public class PlayerTurnManager : MonoBehaviour
 
     private static PlayerTurnManager _instance;
 
-    private bool _nextNarrativeReady; 
+    private bool _nextNarrativeReady;
+    public bool ReleaseTheGrey;
     
     public static PlayerTurnManager Instance
     {
@@ -73,7 +74,7 @@ public class PlayerTurnManager : MonoBehaviour
         Grid.Instance.ResetSpriteAlpha();
         _state = TurnState.GREY;
 
-        RandomizeDirections();
+        RandomizeDirections(); 
     }
     IEnumerator PrepareChar1(float time)
     {
@@ -88,14 +89,13 @@ public class PlayerTurnManager : MonoBehaviour
         _char1.SetActive(true);
         ClearPathList();
         _state = TurnState.CHAR1;
-        if (_nextNarrativeReady)
+        /*if (_nextNarrativeReady)
         {
             NarrativeManager.Instance.DisplayNarrativeElement();
             _nextNarrativeReady = false;
             _char1.EnterUIScreen();
-        }
+        }*/
     }
-
     IEnumerator PrepareChar2(float time)
     {
         yield return new WaitForSeconds(time);
@@ -107,7 +107,7 @@ public class PlayerTurnManager : MonoBehaviour
         _camera.transform.rotation = rotation;
         _camera.transform.parent = _char2.transform;
 
-
+        
         _char2.SetActive(true);
 
         _char2.StartTurn();
@@ -115,9 +115,7 @@ public class PlayerTurnManager : MonoBehaviour
         SetPathList(_char1.GetMoveList());
         _state = TurnState.CHAR2;
     }
-
-
-        public void ChangeTurn()
+    public void ChangeTurn()
     {
         //FindObjectOfType<AudioManager>().Play("background");
 
@@ -139,12 +137,15 @@ public class PlayerTurnManager : MonoBehaviour
         else
         {
             _greyLady.SetActive(false);
-
             _char2.SetActive(false);
-            //_char1.StartTurn();
-            StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
-          
-
+            if (_nextNarrativeReady)
+            {
+                StartCoroutine(Character2NarrativeMode(_char2.GetMovementSpeed()));
+            }
+            else
+            {
+                StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
+            } 
         }
     }
     public void RandomizeDirections()
@@ -167,13 +168,29 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void SetNarrativeReady()
     {
-        _nextNarrativeReady = true; 
+        ReleaseTheGrey = false;
+        _nextNarrativeReady = true;
+        StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
+    }
+    IEnumerator Character1NarrativeMode(float time)
+    {
+        yield return new WaitForSeconds(time);
+        NarrativeManager.Instance.DisplayNarrativeElement();
+        _char1.EnterUIScreen();
+        NarrativeManager.Instance.IncrementNarrativePoint();
+    }
+    IEnumerator Character2NarrativeMode(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _char2.EnterUIScreen();
+        NarrativeManager.Instance.DisplayNarrativeElement();
+        _nextNarrativeReady = false;
+        StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
     }
     public void SetPathList(List<string> pL)
     {
         _pathList = pL;
     }
-
     public List<string > GetPathlist()
     {
         return _pathList;

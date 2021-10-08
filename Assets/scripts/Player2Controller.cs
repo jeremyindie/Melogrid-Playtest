@@ -57,7 +57,7 @@ public class Player2Controller : Controller
                 Move();
             }
             if (_correctMoves >= 4)
-            {
+            {                
                 PlayerTurnManager.Instance.ChangeTurn();
             }
             else if (_wrongMoves >= 4)
