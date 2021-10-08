@@ -9,6 +9,12 @@ public class GreyLady : Controller
     private MovingDirections _currentMovementDirection;
     private bool _isMoving;
 
+
+    private void Start()
+    {
+        base.Start();
+    }
+
     private void Update()
     {
         base.Update();
@@ -56,16 +62,28 @@ public class GreyLady : Controller
     {
         
     }
+    private string GetSoundName(string direction)
+    {
+        switch (direction) {
+
+            case "U": return "UpSound";
+                
+            case "L": return "LeftSound";
+            case "R": return "RightSound";
+        }
+        return "";
+    }
 
     protected override bool MoveUp(bool isMovingForward = true)
     {
-        int direction = -1;
-        if (isMovingForward) direction = 1;
+        int direction = 1;
+        if (isMovingForward) direction = -1;
 
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance;
         if (StartMove())
         {
-            AudioManager.Instance.Play("UpSound");
+            if (isMovingForward) 
+            AudioManager.Instance.Play(GetSoundName(_upKeyDirection));
             return true;
         }
         return false;
@@ -74,12 +92,12 @@ public class GreyLady : Controller
 
     protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
     {
-        int direction = -1;
-        if (isMovingForward) direction = 1;
+        int direction = 1;
+        if (isMovingForward) direction = -1;
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance - direction * Vector3.right * _movementDistance;
         if (StartMove())
         {
-            AudioManager.Instance.Play("LeftSound");
+            AudioManager.Instance.Play(GetSoundName(_leftKeyDirection));
             return true;
         }
         return false;
@@ -87,12 +105,12 @@ public class GreyLady : Controller
 
     protected override bool MoveDiagonallyRightUp(bool isMovingForward = true)
     {
-        int direction = -1;
-        if (isMovingForward) direction = 1;
+        int direction = 1;
+        if (isMovingForward) direction = -1;
         _newPosition = _originalPosition + direction * Vector3.up * _movementDistance + direction * Vector3.right * _movementDistance;
         if (StartMove())
         {
-            AudioManager.Instance.Play("RightSound");
+            AudioManager.Instance.Play(GetSoundName(_rightKeyDirection));
             return true;
 
         }
