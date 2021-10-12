@@ -15,6 +15,13 @@ public class EnvironmentMovementTest : MonoBehaviour
     public float s_DistanceForMovement = 50;
     public static float DistanceForMovement = 50;
     public float DistanceToStand = 50;
+
+    public Transform sprite;
+    public Transform topright;
+    public Transform topleft;
+    public Transform bottomright;
+    public Transform bottomleft; 
+
     private void Start()
     {
         player1Reference = PlayerTurnManager.Instance.GetPlayerOneTransform();
@@ -47,6 +54,35 @@ public class EnvironmentMovementTest : MonoBehaviour
         {
             LerpRatio = Mathf.Clamp((DistanceToEnvironment / DistanceForMovement), 0.5f, 1);
         }*/
-        gameObject.transform.rotation = Quaternion.Lerp(StartPoint.rotation, EndPoint.rotation, LerpRatio);
+        //sprite.transform.rotation = Quaternion.Lerp(StartPoint.rotation, EndPoint.rotation, LerpRatio);
+        Transform currentParent; 
+        if (transform.position.x > PlayerReferencePosition.position.x)
+        {
+            if (transform.position.y > PlayerReferencePosition.position.y)
+            {
+                sprite.transform.parent = topright;
+                currentParent = topright; 
+            } else
+            {
+                sprite.transform.parent = topleft;
+                currentParent = topleft;
+
+            }
+        } else
+        {
+            if (transform.position.y > PlayerReferencePosition.position.y)
+            {
+                sprite.transform.parent = bottomright;
+                currentParent = bottomright;
+            }
+            else
+            {
+                sprite.transform.parent = bottomleft;
+                currentParent = bottomleft; 
+
+            }
+        }
+        currentParent.transform.rotation = Quaternion.Lerp(StartPoint.rotation, EndPoint.rotation, LerpRatio);
+
     }
 }

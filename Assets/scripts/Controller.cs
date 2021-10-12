@@ -332,6 +332,10 @@ public class Controller : MonoBehaviour
         _melody = melody;
     }
 
+    public void EnableSprite()
+    {
+        _spriteRenderer.enabled = true;
+    }
     public void SetNarrativeElementReady(bool isReady)
     {
         _narrativeElementReady = isReady; 

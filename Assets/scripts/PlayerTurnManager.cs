@@ -101,6 +101,7 @@ public class PlayerTurnManager : MonoBehaviour
 
             SetPathList(_char1.GetMoveList());
             _greyLady.RefreshTiles();
+            _greyLady.EnableSprite();
             Grid.Instance.ResetSpriteAlpha();
             _characterIsLoaded = true;
 
@@ -317,11 +318,11 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public bool IsPlayerOnesTurn()
     {
-        return (_state == TurnState.CHAR1 || (_characterIsLoaded && _state == TurnState.CHAR2));
+        return ((_state == TurnState.CHAR1 && !_characterIsLoaded)|| (_characterIsLoaded && _state == TurnState.CHAR2));
     }
     public bool IsPlayerTwosTurn()
     {
-        return (_state == TurnState.CHAR2 || (_characterIsLoaded && _state == TurnState.GREY));
+        return (_state == TurnState.CHAR2 && !_characterIsLoaded);
     }
 
     public bool GetIsFirstTurn()

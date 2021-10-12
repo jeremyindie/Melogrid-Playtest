@@ -3120,11 +3120,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d50a57176ae42c45ab3649f15394a40, type: 3}
---- !u!1 &539533683 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 90718948543258370, guid: 8d50a57176ae42c45ab3649f15394a40, type: 3}
-  m_PrefabInstance: {fileID: 539533682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &577615368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3578,6 +3573,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 982498930271751953, guid: 00ef291d433792d47a5d2d2509a9fc92, type: 3}
+      propertyPath: EndPoint
+      value: 
+      objectReference: {fileID: 1768937135}
+    - target: {fileID: 982498930271751953, guid: 00ef291d433792d47a5d2d2509a9fc92, type: 3}
+      propertyPath: StartPoint
+      value: 
+      objectReference: {fileID: 1400984837}
     - target: {fileID: 5095592678493803608, guid: 00ef291d433792d47a5d2d2509a9fc92, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4031,11 +4034,6 @@ PrefabInstance:
       objectReference: {fileID: 1312816278}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b1ff0a601e98e7459f076dc4e6e300b, type: 3}
---- !u!1 &1080517792 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4013000691887150077, guid: 7b1ff0a601e98e7459f076dc4e6e300b, type: 3}
-  m_PrefabInstance: {fileID: 1080517791}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1140689947
 GameObject:
   m_ObjectHideFlags: 0
@@ -4521,9 +4519,9 @@ MonoBehaviour:
   _gridDimention: 1
   _tileList:
   - {fileID: 857675461}
-  - {fileID: 1080517792}
-  - {fileID: 539533683}
-  - {fileID: 1805371082}
+  - {fileID: 857675461}
+  - {fileID: 857675461}
+  - {fileID: 857675461}
   _darkSideTileMapDimention: 5
 --- !u!1 &1523062698
 GameObject:
@@ -5281,11 +5279,6 @@ PrefabInstance:
       objectReference: {fileID: 1312816278}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f76f606cf453542bd54ace5b3668d9, type: 3}
---- !u!1 &1805371082 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7211376454085735853, guid: f1f76f606cf453542bd54ace5b3668d9, type: 3}
-  m_PrefabInstance: {fileID: 1805371081}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1827845600
 GameObject:
   m_ObjectHideFlags: 0
