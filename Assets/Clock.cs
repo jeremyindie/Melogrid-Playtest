@@ -27,14 +27,14 @@ public class Clock : MonoBehaviour
     private float _lerpAmount; 
     private float _lerpValueA;
     private float _lerpValueB;
-    private bool _isAnimated; 
+    private bool _isAnimated;
+    private bool _isForwardInTime; 
 
 
     void Start()
     {
         _clockFaceSprite = GetComponent<SpriteRenderer>();
         _isAnimated = false;
-        StartTimeForward();
         
     }
 
@@ -51,10 +51,7 @@ public class Clock : MonoBehaviour
         {
             if (_speedIncreasing)
             {
-                _speedIncreasing = false;
-                _lerpValueA = _lerpValueB;
-                _lerpValueB = 0.0f;
-                _lerpAmount = 0.0f;
+                HalfwayPointOfClock();
             } else
             {
                 OnFinish();
@@ -65,22 +62,66 @@ public class Clock : MonoBehaviour
         _angle = _speed * Time.deltaTime;
         _hourHand.Rotate(-transform.forward, _angle);
         _minuteHand.Rotate(-transform.forward, _angle * 10);
+        float scale = 1.0f;
+        if (_speedIncreasing)
+        {
+            scale = Mathf.Lerp(0.0f, 0.1f, _lerpAmount);
+
+        }
+        else
+        {
+            scale = Mathf.Lerp(0.0f, 0.1f,1.0f - _lerpAmount);
+
+        }
+        transform.localScale = Vector3.one * scale;
+
     }
     public void StartTimeForward()
     {
-        _isAnimated = true;
-        _speedIncreasing = true;
-        _lerpValueA = 0.0f;
+        _isForwardInTime = true;
         _lerpValueB = _maxSpeed;
-        _lerpAmount = 0.0f;
+        transform.position = PlayerTurnManager.Instance.GetPlayerOneTransform().position;
+        InitializeClock();
     }
     public void StartTimeRewind()
     {
-        _isAnimated = false;
-        _speedIncreasing = true;
-        _lerpValueA = 0.0f;
+        _isForwardInTime = false;
         _lerpValueB = -_maxSpeed;
+        transform.position = PlayerTurnManager.Instance.GetPlayerTwoTransform().position;
+        InitializeClock();
+    }
+
+
+    private void HalfwayPointOfClock()
+    {
+        PlayerTurnManager.Instance.PrepareNextCharacter();
+
+        _speedIncreasing = false;
+        _lerpValueA = _lerpValueB;
+        _lerpValueB = 0.0f;
         _lerpAmount = 0.0f;
+        if (_isForwardInTime)
+        {
+            transform.position = PlayerTurnManager.Instance.GetPlayerGreyTransform().position;
+        }
+        else
+        {
+            transform.position = PlayerTurnManager.Instance.GetPlayerOneTransform().position;
+        }
+
+
+    }
+    private void InitializeClock()
+    {
+
+        _lerpAmount = 0.0f;
+        _lerpValueA = 0.0f;
+        _isAnimated = true;
+        _speedIncreasing = true;
+        transform.localScale = Vector3.zero;
+        _clockFaceSprite.enabled = true;
+        _minuteHandSprite.enabled = true;
+        _hourHandSprite.enabled = true;
     }
 
     private void OnFinish()
@@ -89,6 +130,7 @@ public class Clock : MonoBehaviour
         _minuteHandSprite.enabled = false;
         _hourHandSprite.enabled = false;
         _isAnimated = false;
+        PlayerTurnManager.Instance.ChangeTurn(true, 0.0f);
 
     }
 }

@@ -65,4 +65,21 @@ public class Player1Controller : Controller
 
     }
 
+    protected override void OnTurnEnd()
+    {
+        if (_narrativeElementReady)
+        {
+            PlayerTurnManager.Instance.StartNarrativeScreen();
+        } else
+        {
+            PlayerTurnManager.Instance.StartClockForward();
+        }
+    }
+
+    protected override void OnNarrativeEnd()
+    {
+        PlayerTurnManager.Instance.StartClockForward();
+
+    }
+
 }

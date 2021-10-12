@@ -40,6 +40,9 @@ public class Controller : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
     protected List<Directions> _melody;
 
+    protected bool _narrativeElementReady; 
+
+
     //playing sounds
     [SerializeField]
     protected float _playbackSpeedModifier = 1.0f;
@@ -115,7 +118,7 @@ public class Controller : MonoBehaviour
         ExitUIScreen();
         if (PlayerTurnManager.Instance.IsInNarrativeScreen())
         {
-            PlayerTurnManager.Instance.ChangeTurn();
+            OnNarrativeEnd();
         }
         if (_playerHasLost)
         {
@@ -329,10 +332,20 @@ public class Controller : MonoBehaviour
         _melody = melody;
     }
 
+    public void SetNarrativeElementReady(bool isReady)
+    {
+        _narrativeElementReady = isReady; 
+    }
+
     protected virtual void EndMelody()
     {
         _isPlayingMelody = false;
         _canMove = true;
+
+    }
+
+    protected virtual void OnNarrativeEnd()
+    {
 
     }
 

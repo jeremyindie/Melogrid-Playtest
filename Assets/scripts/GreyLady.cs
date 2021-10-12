@@ -101,10 +101,15 @@ public class GreyLady : Controller
         }
     }
 
+    public void RefreshTiles()
+    {
+        Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
+
+    }
+
     public override void StartTurn()
     {
         RandomizeDirections();
-        Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
         _currentAbsoluteDirection = AbsoluteDirections.LEFT;
         _currentRelativeDirection = RelativeDirections.FORWARD;
         _canMove = true;

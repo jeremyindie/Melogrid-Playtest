@@ -3836,6 +3836,7 @@ MonoBehaviour:
   _char1: {fileID: 956549514}
   _char2: {fileID: 1312816279}
   _greyLady: {fileID: 1539460879}
+  _clock: {fileID: 807051648}
   _camera: {fileID: 519420031}
 --- !u!4 &990980170
 Transform:
@@ -4710,7 +4711,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _movementSpeed: 1
-  _playbackSpeedModifier: 1
+  _playbackSpeedModifier: 1.5
   _playNotesFirst: 1
 --- !u!58 &1539460881
 CircleCollider2D:

@@ -112,7 +112,16 @@ public class Player2Controller : Controller
     {
         DisableUI();
         UIManager.Instance.EraseUIText();
-        PlayerTurnManager.Instance.ChangeTurn();
+
+        if(_narrativeElementReady)
+        {
+            PlayerTurnManager.Instance.StartNarrativeScreen();
+        }
+        else
+        {
+            PlayerTurnManager.Instance.StartClockBackward();
+        }
+        //       PlayerTurnManager.Instance.ChangeTurn();
     }
 
    
@@ -192,6 +201,11 @@ public class Player2Controller : Controller
     }
 
 
+    protected override void OnNarrativeEnd()
+    {
+        PlayerTurnManager.Instance.StartClockBackward();
+
+    }
 
 
 
