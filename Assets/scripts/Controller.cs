@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField]
-    private LayerMask _boundary;
+    protected LayerMask _boundary;
 
 
     [SerializeField]
@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
 
     protected bool _playerHasLost;
     protected bool _inUIScreen;
+    protected bool _doesCharacterMoveWithPositiveY; 
 
     protected bool _canMove;
     protected bool _isActive;
@@ -30,93 +31,174 @@ public class Controller : MonoBehaviour
     protected Vector3 _originalPosition;
     protected Vector3 _newPosition;
 
-    protected List<string> _moveList;
+    protected List<Directions> _moveList;
 
-    protected string _upKeyDirection;
-    protected string _leftKeyDirection;
-    protected string _rightKeyDirection;
+    protected Directions _upKeyDirection;
+    protected Directions _leftKeyDirection;
+    protected Directions _rightKeyDirection;
+
+    protected SpriteRenderer _spriteRenderer;
+    protected List<Directions> _melody;
+
+    //playing sounds
+    [SerializeField]
+    protected float _playbackSpeedModifier = 1.0f;
+    protected bool _isPlayingMelodyNote;
+    protected bool _isPlayingMelody;
+    protected int _melodyNote;
+    protected float _timeInMelodyNote;
+
+    public enum Directions
+    {
+        UP,
+        LEFT,
+        RIGHT
+    };
 
     protected void Start()
     {
-        _moveList = new List<string>();
+        _moveList = new List<Directions>();
         _movementDistance = Grid.Instance.GetGridDimention();
         _inUIScreen = false;
         _playerHasLost = false;
         _horizontalKeyDown = false;
         _verticalKeyDown = false;
+        _originalPosition = transform.position;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
-    // Update is called once per frame
     protected void Update()
     {
+        if (!_isActive) return;
+
         if (_inUIScreen)
         {
             if (Input.GetKeyDown("space"))
             {
-                ExitUIScreen();
-                if (PlayerTurnManager.Instance.IsInNarrativeScreen())
-                {
-                    PlayerTurnManager.Instance.ChangeTurn();
-                }
-                if (_playerHasLost)
-                {
-                    PlayerTurnManager.Instance.OnLossRestart();
-                }
+                InteractWithUI();
             }
-        }
-        else if (!_canMove && _isLerpingToNewPosition)
+        } else if (_isPlayingMelody && !_isPlayingMelodyNote)
+        {
+            _isPlayingMelodyNote = true;
+            StartCoroutine(PlayMelodyNote(_melodyNote));
+        } 
+        else if (_canMove)
         {
 
-            if (_lerpDistanceToNewPosition > 1)
-            {
-                _isLerpingToNewPosition = false;
-                _canMove = true;
-                _originalPosition = _newPosition;
-                OnSuccessfulMove(_newPosition - _originalPosition);
-
-                return;
-            }
-            _lerpDistanceToNewPosition += _movementSpeed * Time.deltaTime;
-            transform.position = Vector3.Lerp(_originalPosition, _newPosition, _lerpDistanceToNewPosition);
+            Move();
         }
-
-
+        else if (_isLerpingToNewPosition)
+        {
+            LerpToNewPosition();
+        }
+       
     }
-
-    protected virtual bool MoveUp(bool isMovingForward = true)
+    private void LerpToNewPosition()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance;
-        if (StartMove())
+
+        if (_lerpDistanceToNewPosition > 1)
         {
-            _moveList.Add("U");
-            return true;
+            _isLerpingToNewPosition = false;
+            _canMove = true;
+            _originalPosition = _newPosition;
+            OnMoveEnd(_newPosition - _originalPosition);
+
+            return;
         }
-        return false;
+        _lerpDistanceToNewPosition += _movementSpeed * Time.deltaTime;
+        transform.position = Vector3.Lerp(_originalPosition, _newPosition, _lerpDistanceToNewPosition);
     }
 
-
-    protected virtual bool MoveDiagonallyLeftUp(bool isMovingForward = true)
+    private void InteractWithUI()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance - Vector3.right * _movementDistance;
-        if (StartMove())
+        ExitUIScreen();
+        if (PlayerTurnManager.Instance.IsInNarrativeScreen())
         {
-            _moveList.Add("L");
-            return true;
+            PlayerTurnManager.Instance.ChangeTurn();
         }
-        return false; 
+        if (_playerHasLost)
+        {
+            PlayerTurnManager.Instance.OnLossRestart();
+        }
     }
 
-    protected virtual bool MoveDiagonallyRightUp(bool isMovingForward = true)
+
+    protected virtual void Move()
     {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance + Vector3.right * _movementDistance;
-        if (StartMove())
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        _newPosition = Vector3.zero;
+
+        if (horizontal < 0 && !_horizontalKeyDown)
         {
-            _moveList.Add("R");
-            return true;
+            MoveDiagonallyLeftUp();
+            _horizontalKeyDown = true;
         }
-        return false;
+        else if (horizontal > 0 && !_horizontalKeyDown)
+        {
+            MoveDiagonallyRightUp();
+            _horizontalKeyDown = true;
+
+        }
+        else if (vertical > 0 && !_verticalKeyDown)
+        {
+            MoveUp();
+            _verticalKeyDown = true;
+
+        }
+        if (horizontal == 0)
+        {
+            _horizontalKeyDown = false;
+        }
+        if (vertical == 0)
+        {
+            _verticalKeyDown = false;
+        }
     }
 
+    protected virtual void MoveUp(bool flipTheMovement= false)
+    {
+        int directionModifier = (_doesCharacterMoveWithPositiveY ^ flipTheMovement) ? 1 : -1;
+
+        _newPosition = _originalPosition + Vector3.up * _movementDistance * directionModifier;
+        StartMove(Directions.UP);
+
+    }
+
+
+    protected virtual void MoveDiagonallyLeftUp(bool flipTheMovement = false)
+    {
+        int directionModifier = (_doesCharacterMoveWithPositiveY ^ flipTheMovement) ? 1 : -1;
+
+        _newPosition = _originalPosition + Vector3.up * _movementDistance * directionModifier - Vector3.right * _movementDistance * directionModifier;
+        StartMove(Directions.LEFT);
+       
+    }
+
+    protected virtual void  MoveDiagonallyRightUp(bool flipTheMovement = false)
+    {
+        int directionModifier = (_doesCharacterMoveWithPositiveY ^ flipTheMovement) ? 1 : -1;
+
+        _newPosition = _originalPosition + Vector3.up * _movementDistance * directionModifier + Vector3.right * _movementDistance * directionModifier;
+        StartMove(Directions.RIGHT);
+
+    }
+
+    protected void StartMove(Directions direction)
+    {
+        if (IsMoveLegal())
+        {
+            _isLerpingToNewPosition = true;
+            _lerpDistanceToNewPosition = 0.0f;
+            _canMove = false;
+            OnMoveStart(direction);
+        }
+        else
+        {
+            OnIllegalMove();
+        }
+    }
     public void EnterUIScreen()
     {
         _inUIScreen = true; 
@@ -125,7 +207,6 @@ public class Controller : MonoBehaviour
     public void ExitUIScreen()
     {
         _inUIScreen = false;
-        Debug.Log("ERE");
         NarrativeManager.Instance.TurnOffNarrativeScreen();
 
     }
@@ -133,27 +214,29 @@ public class Controller : MonoBehaviour
     {
 
     }
-    protected bool StartMove()
+
+    protected string DirectionToString(Directions direction)
     {
-        if (!Physics2D.OverlapCircle(_newPosition, _movementDistance / 3, _boundary))
+        string dir = "";
+        switch (direction)
         {
-            _isLerpingToNewPosition = true;
-            _lerpDistanceToNewPosition = 0.0f;
-            _canMove = false;
+            case Directions.UP:
+                dir = "Up";
+                break;
+            case Directions.LEFT:
+                dir = "Left";
+                break;
+            case Directions.RIGHT:
+                dir = "Right";
+                break;
 
-            return true;
         }
-        return false;
-    }
-
-    protected virtual void OnSuccessfulMove(Vector2 moveDelta)
-    {
-
+        return dir;
     }
 
     protected void RandomizeDirections()
     {
-        string[] dirs = PlayerTurnManager.Instance.GetRandomizedDirections();
+        Directions [] dirs = PlayerTurnManager.Instance.GetRandomizedDirections();
         _upKeyDirection = dirs[0];
         _leftKeyDirection = dirs[1];
         _rightKeyDirection = dirs[2];
@@ -168,4 +251,89 @@ public class Controller : MonoBehaviour
     {
         return 1 / _movementSpeed;
     }
+
+    protected virtual bool IsMoveLegal()
+    {
+        return true;
+    }
+    protected virtual void OnMoveStart(Directions direction)
+    {
+        _moveList.Add(direction);
+        string clipName = AudioManager.Instance.GetClipNameFromDirection(direction);
+        AudioManager.Instance.Play(clipName);
+
+    }
+
+    protected virtual void OnMoveEnd(Vector2 moveDelta)
+    {
+
+    }
+
+    protected void OnIllegalMove()
+    {
+
+    }
+
+
+    protected virtual void OnTurnEnd()
+    {
+        PlayerTurnManager.Instance.ChangeTurn();
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        _originalPosition = position;
+        transform.position = position;
+    }
+
+    public List <Directions> GetMoveList()
+    {
+        return _moveList;
+
+    }
+
+
+    protected void PlayMelody()
+    {
+        _isPlayingMelody = true;
+        _canMove = false;
+        _isPlayingMelodyNote = true;
+        _melodyNote = 0;
+        StartCoroutine(PlayMelodyNote(_melodyNote));
+
+    }
+
+
+    IEnumerator PlayMelodyNote(int indexOfDirection)
+    {
+        Directions direction = _melody[indexOfDirection];
+
+        string clipName = AudioManager.Instance.GetClipNameFromDirection(direction);
+
+        AudioManager.Instance.Play(clipName);
+
+        yield return new WaitForSeconds(AudioManager.Instance.GetClipLength(clipName) * _playbackSpeedModifier);
+
+        _isPlayingMelodyNote = false;
+
+        if (_melodyNote + 1 == _melody.Count)
+        {
+            EndMelody();
+        }
+        _melodyNote++;
+
+    }
+
+    protected void CreateMelody(List<Directions> melody)
+    {
+        _melody = melody;
+    }
+
+    protected virtual void EndMelody()
+    {
+        _isPlayingMelody = false;
+        _canMove = true;
+
+    }
+
 }

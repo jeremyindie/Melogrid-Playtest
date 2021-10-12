@@ -4,51 +4,35 @@ using UnityEngine;
 
 public class Player2Controller : Controller
 {
-    private enum Directions
-    {
-        UP,
-        //DOWN,
-        LEFT,
-        RIGHT
-    };
+   
 
     //private Directions _downKeyDirection;
 
+
+
+
+    //Trackers for right and wrong moves
+    [SerializeField]
+    private int _numberOfWrongNotesAllowed = 4;
+    private int _numberOfCorrectMovesNeeded;
     private int _correctMoves;
     private int _wrongMoves;
 
-    private bool _isPlayingMelodyNote;
-    private bool _isPlayingMelody;
-    private int _melodyNote;
-    private float _timeInMelodyNote;
-
-    [SerializeField]
-    private float _playbackSpeedModifier = 1.0f;
-
-    [SerializeField]
-    private int _numberOfWrongNotesAllowed = 4;
-
+    //UI
     [SerializeField]
     private List<SpriteRenderer> _uiForCheckingTheMoves;
-
     [SerializeField]
     private Sprite _uiNotCompleted;
     [SerializeField]
     private Sprite _uiSuccess;
-
     [SerializeField]
     private bool _enableUICircles = false; 
 
     private void Awake()
     {
-        _correctMoves = 0;
-        _wrongMoves = 0;
-        _isPlayingMelodyNote = false;
-        _isPlayingMelody = false;
-        _canMove = false;
         _isActive = false;
-        _originalPosition = transform.position;
-
+        _numberOfCorrectMovesNeeded = 0;
+        _doesCharacterMoveWithPositiveY = false;
     }
 
     public void Start()
@@ -60,255 +44,158 @@ public class Player2Controller : Controller
     void Update()
     {
         base.Update();
-        if (_isActive && !_inUIScreen)
+        if (!_isActive || _inUIScreen) return;
+
+   
+        if (_canMove)
         {
-            if (_isPlayingMelody && !_isPlayingMelodyNote)
+            if (Input.GetKeyDown("space"))
             {
-                _isPlayingMelodyNote = true;
-                StartCoroutine(PlayMelodyNote(_melodyNote));
-            } else if (_canMove)
-            {
-                if (Input.GetKeyDown("space"))
-                {
-                    _isPlayingMelody = true;
-                    _canMove = false;
-                    _isPlayingMelodyNote = false;
-                    _melodyNote = 0;
-                } else
-                {
-                    Move();
-                }
-            }
-            if (_correctMoves >= 4)
-            {
-                for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
-                {
-                    _uiForCheckingTheMoves[i].enabled = false;
-                }
-                UIManager.Instance.EraseUIText();
-                PlayerTurnManager.Instance.ChangeTurn();
-            }
-            else if (_wrongMoves >= _numberOfWrongNotesAllowed)
-            {
-                for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
-                {
-                    _uiForCheckingTheMoves[i].enabled = false;
-                }
-                UIManager.Instance.EraseUIText();
-                _playerHasLost = true;
-                EnterUIScreen();
-                PlayerTurnManager.Instance.ShowLossScreen();
+                PlayMelody();
             }
         }
-       
-
-
-
 
     }
-    private void Move()
+
+
+
+    protected override void OnMoveStart(Directions direction)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        _newPosition = Vector3.zero;
-        //minus sign in front because player is moving vertically downward on the screen
-        if (horizontal < 0 && !_horizontalKeyDown)
-        {
-            MoveInDirection(Directions.LEFT);
-            _horizontalKeyDown = true;
-        }
-        else if (horizontal > 0 && !_horizontalKeyDown)
-        {
-            MoveInDirection(Directions.RIGHT);
-            _horizontalKeyDown = true;
+        Directions adjustedDirection = GetAdjustedDirection(direction);
 
-        }
-        else if (vertical > 0 && !_verticalKeyDown)
+        if (PlayerTurnManager.Instance.GetPathlist()[_correctMoves] == adjustedDirection) 
         {
-            MoveInDirection(Directions.UP);
-            _verticalKeyDown = true;
 
+            OnCorrectMove(adjustedDirection);
         }
-        if (horizontal == 0)
+        else
         {
-            _horizontalKeyDown = false;
-        }
-        if (vertical == 0)
-        {
-            _verticalKeyDown = false;
+            OnWrongMove();
+
         }
     }
 
-    protected override void OnSuccessfulMove(Vector2 moveDelta)
+    protected override void OnMoveEnd(Vector2 moveDelta)
     {
         Grid.Instance.MoveTileArray(transform.position, moveDelta);
+
+        if (_correctMoves >= _numberOfCorrectMovesNeeded)
+        {
+            OnTurnEnd();
+        }
+        else if (_wrongMoves >= _numberOfWrongNotesAllowed)
+        {
+            OnPlayerLost();
+        }
     }
-    private void MoveInDirection(Directions direction)
+    public override void StartTurn()
+    {
+        _correctMoves = 0;
+        _wrongMoves = 0;
+        _numberOfCorrectMovesNeeded = PlayerTurnManager.Instance.GetPathlist().Count;
+        RandomizeDirections();
+        CreateMelody(PlayerTurnManager.Instance.GetPathlist());
+        PlayMelody();
+
+
+        if (_enableUICircles)
+        {
+            EnableUI();
+        } else
+        {
+            DisableUI();
+        }
+
+        UIManager.Instance.SetUIText("Listen to the Melody");
+    }
+    protected override void OnTurnEnd()
+    {
+        DisableUI();
+        UIManager.Instance.EraseUIText();
+        PlayerTurnManager.Instance.ChangeTurn();
+    }
+
+   
+    private void OnWrongMove()
+    {
+        _wrongMoves++;
+        Grid.Instance.DarkenSprites(_wrongMoves);
+        AudioManager.Instance.Play("WrongSound");
+    }
+
+    private void OnCorrectMove(Directions direction)
+    {
+        if (_enableUICircles)
+        {
+            UpdateUI();
+        }
+        _correctMoves++;
+
+        string clipName = AudioManager.Instance.GetClipNameFromDirection(direction);
+        AudioManager.Instance.Play(clipName);
+    }
+    private void OnPlayerLost()
+    {
+        DisableUI();
+
+        UIManager.Instance.EraseUIText();
+        _playerHasLost = true;
+        EnterUIScreen();
+        PlayerTurnManager.Instance.ShowLossScreen();
+    }
+
+    protected override void EndMelody()
+    {
+        base.EndMelody();
+        UIManager.Instance.SetUIText(_numberOfCorrectMovesNeeded + " correct moves left");
+
+        if (PlayerTurnManager.Instance.GetIsFirstTurn())
+        {
+            UIManager.Instance.SetInputText("Press Space to Listen to Melody Again");
+
+        }
+    }
+    private void DisableUI()
+    {
+        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        {
+            _uiForCheckingTheMoves[i].enabled = false;
+        }
+    }
+    private void EnableUI()
+    {
+        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        {
+            _uiForCheckingTheMoves[i].enabled = true;
+            _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
+        }
+    }
+
+    private void UpdateUI()
+    {
+        _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
+    }
+
+    private Directions GetAdjustedDirection(Directions direction)
     {
         switch (direction)
         {
             case Directions.UP:
-                MoveUp();
-                break;
-            case Directions.LEFT:
-                MoveDiagonallyLeftUp();
-                break;
-            case Directions.RIGHT:
-                MoveDiagonallyRightUp();
-                break;
-
-        }
-    }
-
-    private string GetAdjustedDirection(string direction)
-    {
-        switch (direction)
-        {
-            case "U":
                 return _upKeyDirection;
-            case "L":
+            case Directions.LEFT:
                 return _leftKeyDirection;
-            case "R":
+            case Directions.RIGHT:
                 return _rightKeyDirection;
  
         }
         return _upKeyDirection;
     }
-    protected override bool MoveUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition - Vector3.up * _movementDistance;
-        if (StartMove())
-        {
-            checkMove("U");
-            return true;
-        }
-        return false;
-
-    }
-
-    protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition - Vector3.up * _movementDistance + Vector3.right * _movementDistance;
-        if (StartMove())
-        {
-            checkMove("L");
-            return true;
-        }
-        return false;
-    }
-
-    protected override bool MoveDiagonallyRightUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition - Vector3.up * _movementDistance - Vector3.right * _movementDistance;
-        if (StartMove())
-        {
-            checkMove("R");
-            return true;
-        }
-        return false;
-    }
 
 
 
-    private void checkMove(string move)
-    {
-        //if (GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[_correctMoves]) == GetAdjustedDirection( move ))
-        if (PlayerTurnManager.Instance.GetPathlist()[_correctMoves] == GetAdjustedDirection(move))
-
-        {
-            if (_enableUICircles)
-            {
-                _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
-            }
-            _correctMoves++;
-            //UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
-            _moveList.Add(move);
 
 
-        }
-        else
-        {
-            Debug.Log(PlayerTurnManager.Instance.GetPathlist()[_correctMoves] + " != " + GetAdjustedDirection(move) + " unadjusted move " + move);
-            _wrongMoves++;
-            Grid.Instance.DarkenSprites(_wrongMoves);
-            AudioManager.Instance.Play("WrongSound");
-        }
-        UIManager.Instance.SetUIText("" + (4 - _correctMoves) + " correct moves left" + "\n" + (_numberOfWrongNotesAllowed - _wrongMoves) + " notes before time is lost");
 
-    }
-
-    IEnumerator PlayMelodyNote(int indexOfDirection)
-    {
-        string direction = PlayerTurnManager.Instance.GetPathlist()[indexOfDirection];//GetAdjustedDirection(PlayerTurnManager.Instance.GetPathlist()[indexOfDirection]);
-        string clipName = "";
-
-        switch (direction)
-        {
-            case "U":
-                clipName = "UpSound";
-                break;
-            case "L":
-                clipName = "LeftSound";
-                break;
-            case "R":
-                clipName = "RightSound";
-                break;
-        }
-        AudioManager.Instance.Play(clipName);
-
-        yield return new WaitForSeconds(AudioManager.Instance.GetClipLength(clipName) * _playbackSpeedModifier);
-        _isPlayingMelodyNote = false;
-        if (_melodyNote + 1 == PlayerTurnManager.Instance.GetPathlist().Count)
-        {
-            _isPlayingMelody = false;
-            _canMove = true;
-            UIManager.Instance.SetUIText("4 correct moves left");
-            if (PlayerTurnManager.Instance.GetIsFirstTurn())
-            {
-                UIManager.Instance.SetInputText("Press Space to Listen to Melody Again");
-
-            }
-        }
-        _melodyNote++;
-
-    }
-
-    public void DisableUI()
-    {
-
-    }
-    
-    public override void StartTurn()
-    {
-        _correctMoves = 0;
-        _wrongMoves = 0;
-        _isPlayingMelody = true;
-        _canMove = false;
-        _isPlayingMelodyNote = false;
-        //always assuming swaping after 4 moves for prototype
-        _melodyNote = 0;
-        RandomizeDirections();
-        UIManager.Instance.SetUIText("Listen to the Melody");
-        if (_enableUICircles)
-        {
-            for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
-            {
-                _uiForCheckingTheMoves[i].enabled = true;
-                _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
-            }
-        } else
-        {
-            for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
-            {
-                _uiForCheckingTheMoves[i].enabled = false;
-               //_uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
-            }
-
-        }
-
-       
-        //Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
-    }
 
 
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerTurnManager : MonoBehaviour
 {
-    private enum TurnState { CHAR1, GREY, CHAR2, CHAR1_NAR, CHAR2_NAR }
+    private enum TurnState { CHAR1, GREY, CHAR2 } // CHAR1_NAR, CHAR2_NAR }
     private TurnState _state;
+    
+
     [SerializeField]
     private Player1Controller _char1;
     [SerializeField]
@@ -16,9 +18,9 @@ public class PlayerTurnManager : MonoBehaviour
     [SerializeField]
     private Camera _camera;
 
-    private List<string> _pathList;
+    private List<Controller.Directions> _pathList;
 
-    private string[] _dirs;
+    private Controller.Directions[] _dirs;
 
 
     private static PlayerTurnManager _instance;
@@ -55,7 +57,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _state = TurnState.CHAR1;
         _nextNarrativeReady = false;
-        _dirs = new string[3];
+        _dirs = new Controller.Directions[3];
         _isFirstTurn = true;
         _inNarrativeScreen = false;
 
@@ -64,9 +66,8 @@ public class PlayerTurnManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(time);
+
         _greyLady.SetPosition(_char2.transform.position + _char2.transform.up);
-        //_greyLady.transform.position = _char2.transform.position;
-        //_greyLady.transform.rotation = _char2.transform.rotation;
 
         _camera.transform.parent = null;
         _camera.transform.position = new Vector3(_greyLady.transform.position.x, _greyLady.transform.position.y, _camera.transform.position.z);
@@ -77,7 +78,7 @@ public class PlayerTurnManager : MonoBehaviour
         _camera.transform.rotation = rotation;
         _camera.transform.parent = _greyLady.transform;
 
-
+        SetPathList(_char1.GetMoveList());
         _greyLady.SetActive(true);
         _greyLady.StartTurn();
         Grid.Instance.ResetSpriteAlpha();
@@ -99,12 +100,6 @@ public class PlayerTurnManager : MonoBehaviour
         _char1.SetActive(true);
         ClearPathList();
         _state = TurnState.CHAR1;
-        /*if (_nextNarrativeReady)
-        {
-            NarrativeManager.Instance.DisplayNarrativeElement();
-            _nextNarrativeReady = false;
-            _char1.EnterUIScreen();
-        }*/
     }
     IEnumerator PrepareChar2(float time)
     {
@@ -117,20 +112,10 @@ public class PlayerTurnManager : MonoBehaviour
         _camera.transform.rotation = rotation;
         _camera.transform.parent = _char2.transform;
 
-        
         _char2.SetActive(true);
-
-        _char2.StartTurn();
-        Grid.Instance.ResetSpriteAlpha();
-        SetPathList(_char1.GetMoveList());
-        if (_nextNarrativeReady)
-        {
-            _state = TurnState.CHAR2_NAR;
-        }
-        else
-        {
-            _state = TurnState.CHAR2;
-        }
+        _char2.StartTurn();      
+        _state = TurnState.CHAR2;
+        
     }
     public void ChangeTurn()
     {
@@ -138,40 +123,42 @@ public class PlayerTurnManager : MonoBehaviour
 
         if (_state == TurnState.CHAR1)
         {
+
+            if (!_inNarrativeScreen && _nextNarrativeReady)
+            {
+                _inNarrativeScreen = true;
+                StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
+                return;
+            }
+
+            _inNarrativeScreen = false;
             _char1.SetActive(false);
             _char2.SetActive(false);
-
-
-            Debug.Log("Changing Turn to greylady");
 
             StartCoroutine(PrepareGrey(_char1.GetMovementSpeed()));
 
 
-        } else if (_state == TurnState.CHAR1_NAR)
-        {
-            Debug.Log("Narrative Screen");
-            StartCoroutine(Character1NarrativeMode(_char1.GetMovementSpeed()));
-            _state = TurnState.CHAR1;
-
-        }
+        } 
         else if (_state == TurnState.GREY)
         {
-
-            Debug.Log("Changing Turn to player 2");
 
             _char1.SetActive(false);
             _greyLady.SetActive(false);
 
             StartCoroutine(PrepareChar2(_greyLady.GetMovementSpeed()));
         }
-        else if (_state == TurnState.CHAR2_NAR)
+        else
         {
-            Debug.Log("Narrative Screen");
-            StartCoroutine(Character2NarrativeMode(_char2.GetMovementSpeed()));
-            _state = TurnState.GREY;
-        } else
-        {
-            Debug.Log("Changing Turn to player 1");
+
+            if (!_inNarrativeScreen && _nextNarrativeReady)
+            {
+                _inNarrativeScreen = true;
+                StartCoroutine(Character2NarrativeMode(_char2.GetMovementSpeed()));
+                _nextNarrativeReady = false;
+                return;
+            }
+            _inNarrativeScreen = false;
+
 
             _greyLady.SetActive(false);
             _char2.SetActive(false);
@@ -187,28 +174,24 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void RandomizeDirections()
     {
-        _dirs[0] = "U";
-        _dirs[1] = "L";
-        _dirs[2] = "R";
+        _dirs[0] = Controller.Directions.UP; // "U";
+        _dirs[1] = Controller.Directions.LEFT;// "L";
+        _dirs[2] = Controller.Directions.RIGHT;// "R";
         for (int i = 0; i < 3; i++)
         {
-            string temp = _dirs[i];
+            Controller.Directions temp = _dirs[i];
             int randomLoc = Mathf.FloorToInt(Random.Range(0, 3));
             _dirs[i] = _dirs[randomLoc];
             _dirs[randomLoc] = temp;
         }
-        if (_dirs[0] == "U" && _dirs[1] == "L" && _dirs[2] == "R") RandomizeDirections();
+        if (_dirs[0] == Controller.Directions.UP && _dirs[1] == Controller.Directions.LEFT && _dirs[2] == Controller.Directions.RIGHT) RandomizeDirections();
     }
-    public string [] GetRandomizedDirections()
+    public Controller.Directions [] GetRandomizedDirections()
     {
         return _dirs;
     }
     public void SetNarrativeReady()
     {
-
-        _state = TurnState.CHAR1_NAR;
-        
-        //ReleaseTheGrey = false;
         _nextNarrativeReady = true;
     }
 
@@ -243,11 +226,11 @@ public class PlayerTurnManager : MonoBehaviour
         _nextNarrativeReady = false;
         _camera.transform.rotation *= Quaternion.Euler(0, 0, 180);
     }
-    public void SetPathList(List<string> pL)
+    public void SetPathList(List<Controller.Directions> pL)
     {
         _pathList = pL;
     }
-    public List<string > GetPathlist()
+    public List<Controller.Directions > GetPathlist()
     {
         return _pathList;
     }
@@ -299,4 +282,10 @@ public class PlayerTurnManager : MonoBehaviour
     {
         return _inNarrativeScreen; 
     }
+     
+    public int GetLengthOfMelody()
+    {
+        return _pathList.Count; 
+    }
+
 }

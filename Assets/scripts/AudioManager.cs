@@ -70,4 +70,22 @@ public class AudioManager : MonoBehaviour
         return s.source.clip.length;
 
     }
+    public string GetClipNameFromDirection(Controller.Directions direction)
+    {
+        string clipName = "";
+        switch (direction)
+        {
+            case Controller.Directions.UP:
+                clipName = "UpSound";
+                break;
+            case Controller.Directions.LEFT:
+                clipName = "LeftSound";
+                break;
+            case Controller.Directions.RIGHT:
+                clipName = "RightSound";
+                break;
+        }
+        return clipName;
+    }
+    
 }

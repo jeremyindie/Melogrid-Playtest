@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Player1Controller : Controller
 {
-    private int _moveNumber; 
+    private int _moveNumber;
+    private int _currentTurnLength; 
+
     private void Awake()
     {
         _canMove = true;
         _isActive = true;
         _moveNumber = 0;
         _originalPosition = transform.position;
-    }
+        _doesCharacterMoveWithPositiveY = true;
+        //potential for checkpoints to set the current turn length
+        _currentTurnLength = 4; 
+
+}
 
     public void Start()
     {
@@ -27,108 +33,36 @@ public class Player1Controller : Controller
             Move();
         }
     }
-
-    private void Move()
-    {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        _newPosition = Vector3.zero;
-        //bool moveWasSuccessful = false; 
-
-        if (horizontal < 0 && !_horizontalKeyDown)
-        {
-            // moveWasSuccessful = MoveDiagonallyLeftUp();
-            MoveDiagonallyLeftUp();
-            _horizontalKeyDown = true;
-        }
-        else if (horizontal > 0 && !_horizontalKeyDown)
-        {
-            //moveWasSuccessful = MoveDiagonallyRightUp();
-            MoveDiagonallyRightUp();
-            _horizontalKeyDown = true;
-
-        }
-        else if (vertical > 0 && !_verticalKeyDown)
-        {
-            //moveWasSuccessful = MoveUp();
-            MoveUp();
-            _verticalKeyDown = true;
-
-        }
-       
-        if (horizontal == 0)
-        {
-            _horizontalKeyDown = false;
-        }
-        if (vertical == 0)
-        {
-            _verticalKeyDown = false;
-        }
-        //if (moveWasSuccessful) IncrementMove();
-    }
-
-    protected override void OnSuccessfulMove(Vector2 moveDelta)
-    {
-        IncrementMove();
-    }
-
-    protected override bool MoveUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance;
-        if (StartMove())
-        {
-            _moveList.Add("U");
-            AudioManager.Instance.Play("UpSound");
-            return true; 
-        }
-        return false;
-
-    }
-
-    protected override bool MoveDiagonallyLeftUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance - Vector3.right * _movementDistance;
-        if (StartMove())
-        {
-            _moveList.Add("L");
-            AudioManager.Instance.Play("LeftSound");
-            return true;
-        }
-        return false; 
-    }
-
-    protected override bool  MoveDiagonallyRightUp(bool isMovingForward = true)
-    {
-        _newPosition = _originalPosition + Vector3.up * _movementDistance + Vector3.right * _movementDistance;
-        if (StartMove())
-        {
-            _moveList.Add("R");
-            AudioManager.Instance.Play("RightSound");
-            return true; 
-
-        }
-        return false; 
-    }
-
-    public List<string> GetMoveList()
-    {
-        return _moveList;
-    }
-
-    public void IncrementMove()
-    {
-        _moveNumber++;
-        if (_moveNumber >= 4)
-        {
-            PlayerTurnManager.Instance.ChangeTurn();
-        }
-
-    }
     public override void StartTurn()
     {
         _moveNumber = 0;
         _canMove = true;
     }
 
+    protected override void OnMoveEnd(Vector2 moveDelta)
+    {
+        IncrementMove();
+    }
+
+
+    protected override bool IsMoveLegal()
+    {
+        if (!Physics2D.OverlapCircle(_newPosition, _movementDistance / 3, _boundary))
+        {
+            return true;
+        }
+        return false;
+
+    } 
+    
+    public void IncrementMove()
+    {
+        _moveNumber++;
+        if (_moveNumber >= _currentTurnLength)
+        {
+            OnTurnEnd();
+        }
+
+    }
 
 }
