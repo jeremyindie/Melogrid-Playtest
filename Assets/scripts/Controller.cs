@@ -204,7 +204,7 @@ public class Controller : MonoBehaviour
     }
     public void EnterUIScreen()
     {
-        _inUIScreen = true; 
+        _inUIScreen = true;
     }
 
     public void ExitUIScreen()
@@ -236,6 +236,8 @@ public class Controller : MonoBehaviour
         }
         return dir;
     }
+
+    
 
     protected void RandomizeDirections()
     {
@@ -293,6 +295,20 @@ public class Controller : MonoBehaviour
     {
         return _moveList;
 
+    }
+    protected Directions GetAdjustedDirection(Directions direction)
+    {
+        switch (direction)
+        {
+            case Directions.UP:
+                return _upKeyDirection;
+            case Directions.LEFT:
+                return _leftKeyDirection;
+            case Directions.RIGHT:
+                return _rightKeyDirection;
+
+        }
+        return _upKeyDirection;
     }
 
 

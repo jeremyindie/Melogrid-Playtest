@@ -18,7 +18,7 @@ public class GreyLady : Controller
         _doesCharacterMoveWithPositiveY = false;
     }
 
-    public void Start()
+    private void Start()
     {
         base.Start();
         _greyMelody = new List<Directions>()
@@ -85,7 +85,7 @@ public class GreyLady : Controller
 
     protected override void OnMoveStart(Directions direction)
     {
-        Debug.Log(DirectionToString(direction) + " == " + _rightKeyDirection);
+        Debug.Log(DirectionToString(direction) + " == " + GetAdjustedDirection(direction));
         UIManager.Instance.SetUIText(DirectionToString(direction) + " Sound");
         if (!_playNotesFirst)
         {
@@ -116,7 +116,11 @@ public class GreyLady : Controller
 
         if (_playNotesFirst)
         {
-            CreateMelody(_greyMelody);
+            List<Directions> adjustedGreyMelody = new List<Directions>();
+            adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[0]));
+            adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[1]));
+            adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[2]));
+            CreateMelody(adjustedGreyMelody);
             PlayMelody(); //sets _canMove to false
 
         } 

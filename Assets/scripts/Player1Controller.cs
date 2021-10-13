@@ -19,7 +19,7 @@ public class Player1Controller : Controller
 
 }
 
-    public void Start()
+    private void Start()
     {
         base.Start();
     }
