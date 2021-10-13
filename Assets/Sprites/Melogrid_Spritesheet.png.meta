@@ -77,6 +77,27 @@ TextureImporter:
   - first:
       213: -2477061244332891500
     second: TreeD_2
+  - first:
+      213: -3151681054270258478
+    second: RiverH_L
+  - first:
+      213: 1683287891031639245
+    second: RiverH_M
+  - first:
+      213: 7063478499492248100
+    second: RiverH_R
+  - first:
+      213: 7341914988534546650
+    second: RiverHV_Connect
+  - first:
+      213: 2420037665919868028
+    second: RiverV_T
+  - first:
+      213: 4892965962976878416
+    second: RiverV_M
+  - first:
+      213: 1416938051755514519
+    second: RiverV_B
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1064,6 +1085,153 @@ TextureImporter:
       bones: []
       spriteID: 492a6ac1ce5bf9dd0800000000000000
       internalID: -2477061244332891500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverH_L
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 448
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d284ea87caf244d0800000000000000
+      internalID: -3151681054270258478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverH_M
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc448af1b6d3c5710800000000000000
+      internalID: 1683287891031639245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverH_R
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 448
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42a38d87544860260800000000000000
+      internalID: 7063478499492248100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverHV_Connect
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 448
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0c7be68c8b3e560800000000000000
+      internalID: 7341914988534546650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverV_T
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 400
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c183c6f63b59120800000000000000
+      internalID: 2420037665919868028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverV_M
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 400
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f50598e9e47e340800000000000000
+      internalID: 4892965962976878416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiverV_B
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 400
+        width: 48
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a1f9b96a9f9a310800000000000000
+      internalID: 1416938051755514519
       vertices: []
       indices: 
       edges: []
