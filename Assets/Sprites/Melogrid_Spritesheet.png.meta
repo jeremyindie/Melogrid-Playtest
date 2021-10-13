@@ -62,6 +62,12 @@ TextureImporter:
   - first:
       213: 807654379775554212
     second: GrassPath12
+  - first:
+      213: -2646615662108863196
+    second: TreeL_1
+  - first:
+      213: 3017831154419873550
+    second: TreeL_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -944,6 +950,48 @@ TextureImporter:
       bones: []
       spriteID: bd6cad227109d0a30800000000000000
       internalID: 4183158057940469467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeL_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 48
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4251403e315554bd0800000000000000
+      internalID: -2646615662108863196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeL_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 448
+        width: 48
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07bd4f127d71e920800000000000000
+      internalID: 3017831154419873550
       vertices: []
       indices: 
       edges: []
