@@ -107,6 +107,9 @@ TextureImporter:
   - first:
       213: 8955217234734885655
     second: Clock_BigHand
+  - first:
+      213: 3600222429214662361
+    second: Bench
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1254,7 +1257,7 @@ TextureImporter:
         width: 23
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1275,7 +1278,7 @@ TextureImporter:
         width: 23
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1296,7 +1299,7 @@ TextureImporter:
         width: 23
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1304,6 +1307,27 @@ TextureImporter:
       bones: []
       spriteID: 71b24d2d0a2574c70800000000000000
       internalID: 8955217234734885655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bench
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 368
+        width: 32
+        height: 32
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dedbbd793f86f130800000000000000
+      internalID: 3600222429214662361
       vertices: []
       indices: 
       edges: []
