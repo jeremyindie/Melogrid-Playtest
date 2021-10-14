@@ -55,7 +55,7 @@ public class PlayerTurnManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
     }
-    void Start()
+    private void Start()
     {
         _state = TurnState.CHAR1;
         _nextNarrativeReady = false;
@@ -333,6 +333,11 @@ public class PlayerTurnManager : MonoBehaviour
     public bool IsInNarrativeScreen()
     {
         return _inNarrativeScreen; 
+    }
+
+    public bool IsNextNarrativeReady()
+    {
+        return _nextNarrativeReady;
     }
      
     public int GetLengthOfMelody()

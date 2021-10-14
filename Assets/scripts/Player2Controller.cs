@@ -116,6 +116,7 @@ public class Player2Controller : Controller
         if(_narrativeElementReady)
         {
             PlayerTurnManager.Instance.StartNarrativeScreen();
+            EnterUIScreen();
         }
         else
         {
@@ -185,26 +186,11 @@ public class Player2Controller : Controller
         _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
     }
 
-    private Directions GetAdjustedDirection(Directions direction)
-    {
-        switch (direction)
-        {
-            case Directions.UP:
-                return _upKeyDirection;
-            case Directions.LEFT:
-                return _leftKeyDirection;
-            case Directions.RIGHT:
-                return _rightKeyDirection;
- 
-        }
-        return _upKeyDirection;
-    }
 
 
     protected override void OnNarrativeEnd()
     {
         PlayerTurnManager.Instance.StartClockBackward();
-
     }
 
 
