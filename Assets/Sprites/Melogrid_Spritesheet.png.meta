@@ -98,6 +98,15 @@ TextureImporter:
   - first:
       213: 1416938051755514519
     second: RiverV_B
+  - first:
+      213: 6196969680176174060
+    second: Clock_Body
+  - first:
+      213: 1257022910633834003
+    second: Clock_LittleHand
+  - first:
+      213: 8955217234734885655
+    second: Clock_BigHand
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1232,6 +1241,69 @@ TextureImporter:
       bones: []
       spriteID: 79a1f9b96a9f9a310800000000000000
       internalID: 1416938051755514519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clock_Body
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 368
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce354c6571f000650800000000000000
+      internalID: 6196969680176174060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clock_LittleHand
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 368
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3167bde5da7d17110800000000000000
+      internalID: 1257022910633834003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clock_BigHand
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 368
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b24d2d0a2574c70800000000000000
+      internalID: 8955217234734885655
       vertices: []
       indices: 
       edges: []
