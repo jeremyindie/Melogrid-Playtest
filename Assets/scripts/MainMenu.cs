@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     public ColourChanges Story01Colour;
     public ColourChanges Story02Colour;
     public ColourChanges Story03Colour;
+    public ColourChanges Story04Colour;
     public ColourChanges SpaceTextColour;
     public ColourChanges BackgroundColour;
 
@@ -25,6 +26,8 @@ public class MainMenu : MonoBehaviour
 
     private bool CanPressSpace;
     private bool StartButtonClicked;
+    private int StoryPhase;
+    private bool OnceOnly;
 
     public void OnStartButton()
     {
@@ -40,7 +43,6 @@ public class MainMenu : MonoBehaviour
         ExitTextColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
         MenuDrawingColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
-        StartButtonClicked = true;
         //SceneManager.LoadScene("prototype 2");
     }
 
@@ -51,16 +53,91 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if(StartButtonClicked)
+        if(StoryPhase == 0 && MenuDrawingColour.ColourLerp >= 1)
         {
-            if (MenuDrawingColour.ColourLerp >= 1)
+            Story01Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+
+            if(Story01Colour.ColourLerp >= 1)
             {
-                Story01Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+                SpaceTextColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Story01Colour.EndColour = new Color(0, 0, 0, 0);
+                    Story01Colour.IsReset = false;
+                    SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
+                    SpaceTextColour.IsReset = false;
+                    StoryPhase = 1;
+                }
             }
+        }
+        else if(StoryPhase == 1)
+        {
+            Story02Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+            BackgroundColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if(OnceOnly == false && Story02Colour.ColourLerp >= 1)
             {
+                SpaceTextColour.EndColour = new Color(50/255f, 80/255f, 80/255f, 1f);
+                SpaceTextColour.IsReset = false;
+                OnceOnly = true;
+            }
+            else if(Story02Colour.ColourLerp >= 1 && Input.GetKeyDown(KeyCode.Space))
+            {
+                Story02Colour.EndColour = new Color(0, 0, 0, 0);
+                Story02Colour.IsReset = false;
+                SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
+                SpaceTextColour.IsReset = false;
+                OnceOnly = false;
+                StoryPhase = 2;
+            }
+        }
+        else if (StoryPhase == 2)
+        {
+            Story03Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
+            if (OnceOnly == false && Story03Colour.ColourLerp >= 1)
+            {
+                SpaceTextColour.EndColour = new Color(50 / 255f, 80 / 255f, 80 / 255f, 1f);
+                SpaceTextColour.IsReset = false;
+                OnceOnly = true;
+            }
+            else if (Story03Colour.ColourLerp >= 1 && Input.GetKeyDown(KeyCode.Space))
+            {
+                Story03Colour.EndColour = new Color(0, 0, 0, 0);
+                Story03Colour.IsReset = false;
+                SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
+                SpaceTextColour.IsReset = false;
+                BackgroundColour.EndColour = new Color(1, 1, 1, 1);
+                BackgroundColour.IsReset = false;
+                OnceOnly = false;
+                StoryPhase = 3;
+            }
+        }
+        else if (StoryPhase == 3)
+        {
+            Story04Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+
+            if (OnceOnly == false && Story04Colour.ColourLerp >= 1)
+            {
+                SpaceTextColour.EndColour = new Color(50 / 255f, 50 / 255f, 50 / 255f, 1f);
+                SpaceTextColour.IsReset = false;
+                OnceOnly = true;
+            }
+            else if (Story03Colour.ColourLerp >= 1 && Input.GetKeyDown(KeyCode.Space))
+            {
+                Story04Colour.EndColour = new Color(0, 0, 0, 0);
+                Story04Colour.IsReset = false;
+                SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
+                SpaceTextColour.IsReset = false;
+                BackgroundColour.EndColour = new Color(0, 0, 0, 1);
+                BackgroundColour.IsReset = false;
+                StringsColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+                StringsColour.EndColour = new Color(0, 0, 0, 0);
+            }
+            
+            if(StringsColour.IsReset && StringsColour.ColourLerp >= 1)
+            {
+                SceneManager.LoadScene("prototype 2");
             }
         }
     }
