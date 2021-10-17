@@ -33,6 +33,9 @@ public class PlayerTurnManager : MonoBehaviour
     //public bool ReleaseTheGrey;
     private bool _isFirstTurn;
 
+    private bool _isPlayerOnesTurn; 
+
+
     public static PlayerTurnManager Instance
     {
         get
@@ -63,6 +66,7 @@ public class PlayerTurnManager : MonoBehaviour
         _isFirstTurn = true;
         _inNarrativeScreen = false;
         _characterIsLoaded = false;
+        _isPlayerOnesTurn = true; 
     }
 
     public void StartNarrativeScreen()
@@ -86,7 +90,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
         if (_state == TurnState.CHAR1)
         {
-
+            _isPlayerOnesTurn = false; 
             _inNarrativeScreen = false;
             _greyLady.SetPosition(_char2.transform.position + _char2.transform.up);
 
@@ -108,7 +112,7 @@ public class PlayerTurnManager : MonoBehaviour
         }
         else if(_state == TurnState.CHAR2)
         {
-
+            _isPlayerOnesTurn = true; 
             _inNarrativeScreen = false;
             _camera.transform.parent = null;
             _camera.transform.position = new Vector3(_char1.transform.position.x, _char1.transform.position.y, _camera.transform.position.z);
@@ -319,7 +323,8 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public bool IsPlayerOnesTurn()
     {
-        return ((_state == TurnState.CHAR1 && !_characterIsLoaded)|| (_characterIsLoaded && _state == TurnState.CHAR2));
+        return (_isPlayerOnesTurn);
+        //return ((_state == TurnState.CHAR1 && !_characterIsLoaded)|| (_characterIsLoaded && _state == TurnState.CHAR2));
     }
     public bool IsPlayerTwosTurn()
     {
