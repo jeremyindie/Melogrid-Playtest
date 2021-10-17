@@ -65,12 +65,12 @@ public class Clock : MonoBehaviour
         float scale = 1.0f;
         if (_speedIncreasing)
         {
-            scale = Mathf.Lerp(0.0f, 0.1f, _lerpAmount);
+            scale = Mathf.Lerp(0.0f, 4.0f, _lerpAmount);
 
         }
         else
         {
-            scale = Mathf.Lerp(0.0f, 0.1f,1.0f - _lerpAmount);
+            scale = Mathf.Lerp(0.0f, 4.0f,1.0f - _lerpAmount);
 
         }
         transform.localScale = Vector3.one * scale;
