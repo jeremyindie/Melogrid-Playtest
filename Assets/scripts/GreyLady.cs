@@ -116,6 +116,7 @@ public class GreyLady : Controller
 
         if (_playNotesFirst)
         {
+
             List<Directions> adjustedGreyMelody = new List<Directions>();
             adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[0]));
             adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[1]));

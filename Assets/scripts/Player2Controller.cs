@@ -26,13 +26,18 @@ public class Player2Controller : Controller
     [SerializeField]
     private Sprite _uiSuccess;
     [SerializeField]
-    private bool _enableUICircles = false; 
+    private bool _enableUICircles = false;
+
+    [SerializeField]
+    private SpriteRenderer _benchSpriteRenderer; 
 
     private void Awake()
     {
         _isActive = false;
         _numberOfCorrectMovesNeeded = 0;
         _doesCharacterMoveWithPositiveY = false;
+        
+
     }
 
     public void Start()
@@ -78,6 +83,7 @@ public class Player2Controller : Controller
     protected override void OnMoveEnd(Vector2 moveDelta)
     {
         Grid.Instance.MoveTileArray(transform.position, moveDelta);
+        _benchSpriteRenderer.transform.position = transform.position + transform.up * _movementDistance *(_numberOfCorrectMovesNeeded - _correctMoves);
 
         if (_correctMoves >= _numberOfCorrectMovesNeeded)
         {
@@ -105,7 +111,7 @@ public class Player2Controller : Controller
         {
             DisableUI();
         }
-
+        _benchSpriteRenderer.transform.position = transform.position + transform.up * _movementDistance * _numberOfCorrectMovesNeeded;
         UIManager.Instance.SetUIText("Listen to the Melody");
     }
     protected override void OnTurnEnd()
@@ -171,6 +177,7 @@ public class Player2Controller : Controller
         {
             _uiForCheckingTheMoves[i].enabled = false;
         }
+        _benchSpriteRenderer.enabled = false; 
     }
     private void EnableUI()
     {
@@ -179,6 +186,8 @@ public class Player2Controller : Controller
             _uiForCheckingTheMoves[i].enabled = true;
             _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
         }
+        _benchSpriteRenderer.enabled = true;
+
     }
 
     private void UpdateUI()

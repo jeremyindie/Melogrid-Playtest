@@ -322,7 +322,8 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public bool IsPlayerTwosTurn()
     {
-        return (_state == TurnState.CHAR2 && !_characterIsLoaded);
+        return (_state == TurnState.CHAR2);
+        // && !_characterIsLoaded);
     }
 
     public bool GetIsFirstTurn()
