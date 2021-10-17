@@ -2351,6 +2351,7 @@ MonoBehaviour:
   _uiNotCompleted: {fileID: 21300000, guid: c8bce4942c768b0429f3ff1170980554, type: 3}
   _uiSuccess: {fileID: 21300000, guid: 207fc71529b82c946be3a11bc3dd9c29, type: 3}
   _enableUICircles: 0
+  _bench: {fileID: 0}
 --- !u!1001 &1348027968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3392,43 +3393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eae051d22f067348a3117fc794258b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: UpSound
-    clip: {fileID: 8300000, guid: 8952a6ddcf535164581ea44776c36b72, type: 3}
-    loop: 0
-    volume: 1
-    pitch: 3
-    source: {fileID: 0}
-  - name: DownSound
-    clip: {fileID: 8300000, guid: 81d85d6efbaa03c41bdb380729b96ab4, type: 3}
-    loop: 0
-    volume: 1
-    pitch: 3
-    source: {fileID: 0}
-  - name: LeftSound
-    clip: {fileID: 8300000, guid: ce639a8478b1d7542b3077592f93b708, type: 3}
-    loop: 0
-    volume: 1
-    pitch: 3
-    source: {fileID: 0}
-  - name: RightSound
-    clip: {fileID: 8300000, guid: 1522817f419464f4abf947b472308fe3, type: 3}
-    loop: 0
-    volume: 1
-    pitch: 3
-    source: {fileID: 0}
-  - name: WrongSound
-    clip: {fileID: 8300000, guid: 39e53699b21ca674f8da6a7e14fbb3c1, type: 3}
-    loop: 0
-    volume: 1
-    pitch: 3
-    source: {fileID: 0}
-  - name: background
-    clip: {fileID: 8300000, guid: 979c6ab342ff67c4bb103a87fd52b82e, type: 3}
-    loop: 1
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  _startingInstrument: {fileID: 0}
+  _character2Instrument: {fileID: 0}
 --- !u!4 &1733045294
 Transform:
   m_ObjectHideFlags: 0
@@ -4200,7 +4166,7 @@ Transform:
   m_GameObject: {fileID: 2010558966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 956549517}
   m_RootOrder: 0
