@@ -102,7 +102,7 @@ public class PlayerTurnManager : MonoBehaviour
             RandomizeDirections();
             _camera.transform.rotation = rotation;
             _camera.transform.parent = _greyLady.transform;
-
+            _char2.StartAudio();
             SetPathList(_char1.GetMoveList());
             _greyLady.RefreshTiles();
             _greyLady.EnableSprite();
@@ -112,7 +112,8 @@ public class PlayerTurnManager : MonoBehaviour
         }
         else if(_state == TurnState.CHAR2)
         {
-            _isPlayerOnesTurn = true; 
+            _isPlayerOnesTurn = true;
+            _char1.StartAudio();
             _inNarrativeScreen = false;
             _camera.transform.parent = null;
             _camera.transform.position = new Vector3(_char1.transform.position.x, _char1.transform.position.y, _camera.transform.position.z);

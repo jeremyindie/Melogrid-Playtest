@@ -40,8 +40,9 @@ public class Controller : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
     protected List<Directions> _melody;
 
-    protected bool _narrativeElementReady; 
+    protected bool _narrativeElementReady;
 
+    protected AudioSource _audio;
 
     //playing sounds
     [SerializeField]
@@ -368,5 +369,37 @@ public class Controller : MonoBehaviour
     {
 
     }
+
+
+    protected IEnumerator FadeInAudio()
+    {
+        float timeInFade = 0.25f;
+        _audio.UnPause();
+        while (timeInFade > 0.0f)
+        {
+
+            timeInFade -= Time.deltaTime;
+            _audio.volume = Mathf.Lerp(0.0f, 1.0f, ((0.25f - timeInFade) * 4.0f));
+            yield return null;
+
+        }
+
+    }
+
+    protected IEnumerator FadeOutAudio()
+    {
+        float timeOutFade = 0.25f;
+        while (timeOutFade > 0.0f)
+        {
+
+            timeOutFade -= Time.deltaTime;
+            _audio.volume = Mathf.Lerp(1.0f, 0.0f, ((0.25f - timeOutFade) * 4.0f));
+            yield return null;
+
+        }
+        _audio.Pause();
+
+    }
+
 
 }
