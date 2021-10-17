@@ -32,7 +32,7 @@ public class PlayerTurnManager : MonoBehaviour
     private bool _characterIsLoaded;
     //public bool ReleaseTheGrey;
     private bool _isFirstTurn;
-
+    private bool _restartingFromLoss; 
     private bool _isPlayerOnesTurn; 
 
 
@@ -66,7 +66,8 @@ public class PlayerTurnManager : MonoBehaviour
         _isFirstTurn = true;
         _inNarrativeScreen = false;
         _characterIsLoaded = false;
-        _isPlayerOnesTurn = true; 
+        _isPlayerOnesTurn = true;
+        _restartingFromLoss = false;
     }
 
     public void StartNarrativeScreen()
@@ -274,15 +275,14 @@ public class PlayerTurnManager : MonoBehaviour
 
     IEnumerator Character2LOSSScreen(float time)
     {
-        Start();
-
-
         _inNarrativeScreen = true;
         yield return new WaitForSeconds(time);
         _char2.EnterUIScreen();
-        NarrativeManager.Instance.DisplayCustomScreen("Press Space to Retry");
+        NarrativeManager.Instance.DisplayCustomScreen("Press Space to Retry the Melody");
         _nextNarrativeReady = false;
+        _restartingFromLoss = true;
         _camera.transform.rotation *= Quaternion.Euler(0, 0, 180);
+
     }
     public void SetPathList(List<Controller.Directions> pL)
     {
@@ -302,8 +302,10 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void OnLossRestart()
     {
+        _state = TurnState.CHAR1;
+        StartClockForward();
+
         //_char1.transform.position = new Vector3(-0.5f, 0.5f, 0f);
-        _state = TurnState.CHAR2;
         //ChangeTurn();
         //StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
 

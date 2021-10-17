@@ -171,6 +171,8 @@ public class Player2Controller : Controller
         _playerHasLost = true;
         EnterUIScreen();
         PlayerTurnManager.Instance.ShowLossScreen();
+        StartCoroutine(FadeOutAudio());
+
     }
 
     protected override void EndMelody()
