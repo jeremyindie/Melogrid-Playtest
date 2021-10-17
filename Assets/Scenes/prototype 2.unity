@@ -298,7 +298,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178353173}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5271,7 +5271,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280513395}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5464,8 +5464,9 @@ MonoBehaviour:
   - {fileID: 2087626081}
   - {fileID: 1280513397}
   - {fileID: 1645761578}
-  _uiNotCompleted: {fileID: 21300000, guid: c8bce4942c768b0429f3ff1170980554, type: 3}
-  _uiSuccess: {fileID: 21300000, guid: 207fc71529b82c946be3a11bc3dd9c29, type: 3}
+  _uiNotCompleted: {fileID: 21300000, guid: ad63754a2acbb51479340fbc736aa0a2, type: 3}
+  _uiSuccess: {fileID: 21300000, guid: 1a0f290351b085f4986d6426729031c5, type: 3}
+  _uiFail: {fileID: 21300000, guid: cc891b046f2f6b14eb0ae9d673a0f1be, type: 3}
   _enableUICircles: 1
   _bench: {fileID: 759859338}
 --- !u!1 &1333555426 stripped
@@ -6391,7 +6392,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645761576}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -6982,7 +6983,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087626079}
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

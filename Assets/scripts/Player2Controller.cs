@@ -26,6 +26,8 @@ public class Player2Controller : Controller
     [SerializeField]
     private Sprite _uiSuccess;
     [SerializeField]
+    private Sprite _uiFail;
+    [SerializeField]
     private bool _enableUICircles = false;
 
     [SerializeField]
@@ -135,6 +137,7 @@ public class Player2Controller : Controller
     private void OnWrongMove()
     {
         _wrongMoves++;
+        StartCoroutine(WrongNoteDisplay());
         Grid.Instance.DarkenSprites(_wrongMoves);
         AudioManager.Instance.Play("WrongSound");
     }
@@ -163,7 +166,7 @@ public class Player2Controller : Controller
     protected override void EndMelody()
     {
         base.EndMelody();
-        UIManager.Instance.SetUIText(_numberOfCorrectMovesNeeded + " correct moves left");
+        UIManager.Instance.SetUIText("");// _numberOfCorrectMovesNeeded + " correct moves left");
 
         if (PlayerTurnManager.Instance.GetIsFirstTurn())
         {
@@ -203,7 +206,13 @@ public class Player2Controller : Controller
     }
 
 
+    IEnumerator WrongNoteDisplay()
+    {
+        _uiForCheckingTheMoves[_correctMoves].sprite = _uiFail;
+        yield return new WaitForSeconds(.5f);
+        _uiForCheckingTheMoves[_correctMoves + 1].sprite = _uiNotCompleted;
 
+    }
 
 
 
