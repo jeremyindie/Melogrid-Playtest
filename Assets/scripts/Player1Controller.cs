@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player1Controller : Controller
 {
     private int _moveNumber;
-    private int _currentTurnLength; 
+    private int _currentTurnLength;
 
     private void Awake()
     {
@@ -14,14 +14,20 @@ public class Player1Controller : Controller
         _moveNumber = 0;
         _originalPosition = transform.position;
         _doesCharacterMoveWithPositiveY = true;
+        _audio = GetComponent<AudioSource>();
         //potential for checkpoints to set the current turn length
         _currentTurnLength = 4; 
 
 }
 
+    
+
     private void Start()
     {
         base.Start();
+        _audio.Pause();
+        StartAudio();
+
     }
     private void Update()
     {
@@ -74,6 +80,8 @@ public class Player1Controller : Controller
         {
             PlayerTurnManager.Instance.StartClockForward();
         }
+        StartCoroutine(FadeOutAudio());
+
     }
 
     protected override void OnNarrativeEnd()
@@ -81,5 +89,13 @@ public class Player1Controller : Controller
         PlayerTurnManager.Instance.StartClockForward();
 
     }
+
+    public void StartAudio()
+    {
+        StartCoroutine(FadeInAudio());
+
+    }
+
+
 
 }

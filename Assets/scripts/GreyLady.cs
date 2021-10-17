@@ -11,7 +11,8 @@ public class GreyLady : Controller
 
     private AbsoluteDirections _currentAbsoluteDirection;
     private RelativeDirections _currentRelativeDirection;
-    private List<Directions> _greyMelody; 
+    private List<Directions> _greyMelody;
+    private bool _waitingForPlayerToPushGo; 
 
     private void Awake()
     {
@@ -27,10 +28,23 @@ public class GreyLady : Controller
             Directions.UP,
             Directions.RIGHT,
         };
+        _waitingForPlayerToPushGo = false;
     }
 
     private void Update()
     {
+        if (_waitingForPlayerToPushGo)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                _waitingForPlayerToPushGo = false;
+                UIManager.Instance.SetInputText("");
+                PlayMelody(); //sets _canMove to false
+
+
+            }
+            return;
+        }
         base.Update();
     }
 
@@ -113,6 +127,8 @@ public class GreyLady : Controller
         _currentAbsoluteDirection = AbsoluteDirections.LEFT;
         _currentRelativeDirection = RelativeDirections.FORWARD;
         _canMove = true;
+        _waitingForPlayerToPushGo = true;
+        UIManager.Instance.SetInputText("Press Space to have the Grey Lady show the notes");
 
         if (_playNotesFirst)
         {
@@ -122,7 +138,6 @@ public class GreyLady : Controller
             adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[1]));
             adjustedGreyMelody.Add(GetAdjustedDirection(_greyMelody[2]));
             CreateMelody(adjustedGreyMelody);
-            PlayMelody(); //sets _canMove to false
 
         } 
         _spriteRenderer.enabled = true;

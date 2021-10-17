@@ -38,14 +38,17 @@ public class Player2Controller : Controller
         _isActive = false;
         _numberOfCorrectMovesNeeded = 0;
         _doesCharacterMoveWithPositiveY = false;
-        
+        _audio = GetComponent<AudioSource>();
 
     }
 
     public void Start()
     {
+        
         Grid.Instance.CreateTileArray(transform.position);
         base.Start();
+        _audio.Play();
+        _audio.Pause();
     }
 
     void Update()
@@ -96,6 +99,12 @@ public class Player2Controller : Controller
             OnPlayerLost();
         }
     }
+
+    public void StartAudio()
+    {
+        StartCoroutine(FadeInAudio());
+
+    }
     public override void StartTurn()
     {
         _correctMoves = 0;
@@ -130,6 +139,7 @@ public class Player2Controller : Controller
         {
             PlayerTurnManager.Instance.StartClockBackward();
         }
+        StartCoroutine(FadeOutAudio());
         //       PlayerTurnManager.Instance.ChangeTurn();
     }
 
@@ -161,6 +171,8 @@ public class Player2Controller : Controller
         _playerHasLost = true;
         EnterUIScreen();
         PlayerTurnManager.Instance.ShowLossScreen();
+        StartCoroutine(FadeOutAudio());
+
     }
 
     protected override void EndMelody()

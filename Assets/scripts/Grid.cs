@@ -46,7 +46,7 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         s_instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         _tileArray = new GameObject[_darkSideTileMapDimention, _darkSideTileMapDimention];
     }
 

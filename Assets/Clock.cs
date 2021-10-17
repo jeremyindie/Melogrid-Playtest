@@ -28,14 +28,14 @@ public class Clock : MonoBehaviour
     private float _lerpValueA;
     private float _lerpValueB;
     private bool _isAnimated;
-    private bool _isForwardInTime; 
-
+    private bool _isForwardInTime;
+    private AudioSource _audio;
 
     void Start()
     {
         _clockFaceSprite = GetComponent<SpriteRenderer>();
         _isAnimated = false;
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -82,6 +82,7 @@ public class Clock : MonoBehaviour
         _lerpValueB = _maxSpeed;
         transform.position = PlayerTurnManager.Instance.GetPlayerOneTransform().position;
         InitializeClock();
+        _audio.Play();
     }
     public void StartTimeRewind()
     {
@@ -89,6 +90,7 @@ public class Clock : MonoBehaviour
         _lerpValueB = -_maxSpeed;
         transform.position = PlayerTurnManager.Instance.GetPlayerTwoTransform().position;
         InitializeClock();
+        _audio.Play();
     }
 
 
@@ -130,6 +132,7 @@ public class Clock : MonoBehaviour
         _minuteHandSprite.enabled = false;
         _hourHandSprite.enabled = false;
         _isAnimated = false;
+        _audio.Stop();
         PlayerTurnManager.Instance.ChangeTurn(true, 0.0f);
 
     }
