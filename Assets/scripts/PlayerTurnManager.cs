@@ -223,11 +223,12 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _inNarrativeScreen = true;
         yield return new WaitForSeconds(time);
-        _char2.EnterUIScreen();
         NarrativeManager.Instance.DisplayNarrativeElement();
+        _char2.EnterUIScreen();
+        NarrativeManager.Instance.IncrementNarrativePoint();
         _nextNarrativeReady = false;
-        StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
-        _camera.transform.rotation *= Quaternion.Euler(0, 0, 180); 
+        //StartCoroutine(PrepareChar1(_char2.GetMovementSpeed()));
+        //_camera.transform.rotation *= Quaternion.Euler(0, 0, 180); 
     }
     IEnumerator PrepareGrey(float time)
     {
