@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 112de7a31d822484ba1190c933f5e0cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8878147117188741602, guid: 858064cdbe25f4c47a48f5ca74fd861d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3529412, g: 0.5372549, b: 0.3372549, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,15 +91,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2978039764151827826}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b17780edfe0472745a93ab499a7e86d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StartPoint: {fileID: 0}
   EndPoint: {fileID: 0}
-  LerpRatio: 0
-  PlayerReferencePosition: {fileID: 0}
   DistanceToEnvironment: 0
   s_DistanceForMovement: 6
   DistanceToStand: 6

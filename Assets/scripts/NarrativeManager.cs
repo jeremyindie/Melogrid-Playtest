@@ -46,7 +46,7 @@ public class NarrativeManager : MonoBehaviour
     void Awake()
     {
         s_instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         _image = GetComponent<Image>();
 
     }
