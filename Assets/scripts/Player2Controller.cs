@@ -210,7 +210,7 @@ public class Player2Controller : Controller
     {
         _uiForCheckingTheMoves[_correctMoves].sprite = _uiFail;
         yield return new WaitForSeconds(.5f);
-        _uiForCheckingTheMoves[_correctMoves + 1].sprite = _uiNotCompleted;
+        _uiForCheckingTheMoves[_correctMoves].sprite = _uiNotCompleted;
 
     }
 

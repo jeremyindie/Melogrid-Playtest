@@ -25,5 +25,7 @@ public class StupidBackground : MonoBehaviour
         }
 
         BackgroundRenderer.sprite = frames[CurrentFrame];
+
     }
+
 }
