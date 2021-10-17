@@ -85,7 +85,7 @@ public class GreyLady : Controller
 
     protected override void OnMoveStart(Directions direction)
     {
-        Debug.Log(DirectionToString(direction) + " == " + GetAdjustedDirection(direction));
+        //Debug.Log(DirectionToString(direction) + " == " + GetAdjustedDirection(direction));
         UIManager.Instance.SetUIText(DirectionToString(direction) + " Sound");
         if (!_playNotesFirst)
         {
