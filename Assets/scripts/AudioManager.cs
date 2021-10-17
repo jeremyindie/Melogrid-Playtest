@@ -7,10 +7,13 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private Instrument _startingInstrument;
+    [SerializeField]
+    private Instrument _character2Instrument;
 
     private Instrument _currentInstrument; 
 
     private Sounder[] sounds;
+    private Sounder[] player2Sounds;
 
 
 
@@ -48,10 +51,18 @@ public class AudioManager : MonoBehaviour
         sounds = new Sounder[4];
         _currentInstrument = _startingInstrument;
         InitializeCurrentInstrument();
-
+        InitializePlayer2Instument();
 
     }
 
+    private void InitializePlayer2Instument()
+    {
+        player2Sounds = new Sounder[4];
+        player2Sounds[0] = _character2Instrument.GetUpSound();
+        player2Sounds[1] = _character2Instrument.GetLeftSound();
+        player2Sounds[2] = _character2Instrument.GetRightSound();
+        player2Sounds[3] = _character2Instrument.GetWrongSound();
+    }
 
     private void InitializeCurrentInstrument()
     {
@@ -71,7 +82,15 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     public void Play(string name)
     {
-        Sounder s = Array.Find(sounds, sound => sound.name == name);
+        Sounder[] listToSearch; 
+        if (PlayerTurnManager.Instance.IsPlayerOnesTurn())
+        {
+            listToSearch = sounds; 
+        } else
+        {
+            listToSearch = player2Sounds;
+        }
+        Sounder s = Array.Find(listToSearch, sound => sound.name == name);
         if (s == null)
         {
             return;
