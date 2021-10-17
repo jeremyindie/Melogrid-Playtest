@@ -4,7 +4,14 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sounder[] sounds;
+
+    [SerializeField]
+    private Instrument _startingInstrument;
+
+    private Instrument _currentInstrument; 
+
+    private Sounder[] sounds;
+
 
 
     /// <summary>
@@ -38,15 +45,27 @@ public class AudioManager : MonoBehaviour
     {
         s_instance = this;
         DontDestroyOnLoad(gameObject);
-        foreach (Sounder s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+        sounds = new Sounder[4];
+        _currentInstrument = _startingInstrument;
+        InitializeCurrentInstrument();
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
-        }
+
+    }
+
+
+    private void InitializeCurrentInstrument()
+    {
+
+        sounds[0] = _currentInstrument.GetUpSound();
+        sounds[1] = _currentInstrument.GetLeftSound();
+        sounds[2] = _currentInstrument.GetRightSound();
+        sounds[3] = _currentInstrument.GetWrongSound();
+    }
+
+    public void SetNewInstrument(Instrument newInstrument)
+    {
+        _currentInstrument = newInstrument;
+        InitializeCurrentInstrument();
     }
 
     // Update is called once per frame
