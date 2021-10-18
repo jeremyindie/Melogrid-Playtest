@@ -20,7 +20,7 @@ public class ColourChanges : MonoBehaviour
     }
     public FadeType ColourFadeType;
     private bool GoingUp;
-    private bool IsReset;
+    public bool IsReset;
 
     // Start is called before the first frame update
     void Start()
@@ -43,15 +43,13 @@ public class ColourChanges : MonoBehaviour
 
     private void colourManager()
     {
-        //If no colour change yet.
-        if(ColourFadeType == FadeType.NoChange)
+        
+        if(ColourFadeType == FadeType.NoChange)//If no colour change yet.
         {
             StartColour = UIObject.color;
             ColourLerp = 0;
-        }
-
-        //Lerp between two colours back and forth.
-        if(ColourFadeType == FadeType.PingPong)
+        }        
+        else if(ColourFadeType == FadeType.PingPong)//Lerp between two colours back and forth.
         {
             if (ColourLerp >= 1)
             {
@@ -71,9 +69,7 @@ public class ColourChanges : MonoBehaviour
                 ColourLerp -= Time.deltaTime * ColourChangeSpeed;
             }
         }
-
-        //Lerp towards a target colour from current colour.
-        if(ColourFadeType == FadeType.FadeToColour)
+        else if(ColourFadeType == FadeType.FadeToColour)//Lerp towards a target colour from current colour.
         {
             if(!IsReset)
             {
