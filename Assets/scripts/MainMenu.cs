@@ -20,6 +20,10 @@ public class MainMenu : MonoBehaviour
     public ColourChanges Story04Colour;
     public ColourChanges SpaceTextColour;
     public ColourChanges BackgroundColour;
+    public ColourChanges StoryVis01Colour;
+    public ColourChanges StoryVis02Colour;
+    public ColourChanges StoryVis03Colour;
+    public ColourChanges StoryVis04Colour;
 
     public AudioSource HappyMenuMusic;
     public AudioSource SadMenuMusic;
@@ -75,6 +79,7 @@ public class MainMenu : MonoBehaviour
         if(StoryPhase == 0 && MenuDrawingColour.ColourLerp >= 1)
         {
             Story01Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+            StoryVis01Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
             if(Story01Colour.ColourLerp >= 1)
             {
@@ -83,6 +88,8 @@ public class MainMenu : MonoBehaviour
                 {
                     Story01Colour.EndColour = new Color(0, 0, 0, 0);
                     Story01Colour.IsReset = false;
+                    StoryVis01Colour.EndColour = new Color(0, 0, 0, 0);
+                    StoryVis01Colour.IsReset = false;
                     SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
                     SpaceTextColour.IsReset = false;
                     StoryPhase = 1;
@@ -92,11 +99,12 @@ public class MainMenu : MonoBehaviour
         else if(StoryPhase == 1)
         {
             Story02Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+            StoryVis02Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
             BackgroundColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
             if(OnceOnly == false && Story02Colour.ColourLerp >= 1)
             {
-                SpaceTextColour.EndColour = new Color(50/255f, 80/255f, 80/255f, 1f);
+                SpaceTextColour.EndColour = new Color(90/255f, 120/255f, 140/255f, 1f);
                 SpaceTextColour.IsReset = false;
                 OnceOnly = true;
             }
@@ -104,6 +112,7 @@ public class MainMenu : MonoBehaviour
             {
                 Story02Colour.EndColour = new Color(0, 0, 0, 0);
                 Story02Colour.IsReset = false;
+
                 SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
                 SpaceTextColour.IsReset = false;
                 OnceOnly = false;
@@ -113,10 +122,11 @@ public class MainMenu : MonoBehaviour
         else if (StoryPhase == 2)
         {
             Story03Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+            StoryVis03Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
             if (OnceOnly == false && Story03Colour.ColourLerp >= 1)
             {
-                SpaceTextColour.EndColour = new Color(50 / 255f, 80 / 255f, 80 / 255f, 1f);
+                SpaceTextColour.EndColour = new Color(90 / 255f, 120 / 255f, 140 / 255f, 1f);
                 SpaceTextColour.IsReset = false;
                 OnceOnly = true;
             }
@@ -124,6 +134,10 @@ public class MainMenu : MonoBehaviour
             {
                 Story03Colour.EndColour = new Color(0, 0, 0, 0);
                 Story03Colour.IsReset = false;
+                StoryVis03Colour.EndColour = new Color(0, 0, 0, 0);
+                StoryVis03Colour.IsReset = false;
+                StoryVis02Colour.EndColour = new Color(0, 0, 0, 0);
+                StoryVis02Colour.IsReset = false;
                 SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
                 SpaceTextColour.IsReset = false;
                 BackgroundColour.EndColour = new Color(1, 1, 1, 1);
@@ -135,6 +149,7 @@ public class MainMenu : MonoBehaviour
         else if (StoryPhase == 3)
         {
             Story04Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
+            StoryVis04Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
             if (OnceOnly == false && Story04Colour.ColourLerp >= 1)
             {
@@ -147,6 +162,8 @@ public class MainMenu : MonoBehaviour
                 Fade02 = true;
                 Story04Colour.EndColour = new Color(0, 0, 0, 0);
                 Story04Colour.IsReset = false;
+                StoryVis04Colour.EndColour = new Color(0, 0, 0, 0);
+                StoryVis04Colour.IsReset = false;
                 SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
                 SpaceTextColour.IsReset = false;
                 BackgroundColour.EndColour = new Color(0, 0, 0, 1);
