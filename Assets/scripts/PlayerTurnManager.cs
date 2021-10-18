@@ -102,7 +102,7 @@ public class PlayerTurnManager : MonoBehaviour
 
             RandomizeDirections();
             _camera.transform.rotation = rotation;
-            _camera.transform.parent = _greyLady.transform;
+            _camera.transform.parent = _char2.transform;
             _char2.StartAudio();
             SetPathList(_char1.GetMoveList());
             _greyLady.RefreshTiles();
