@@ -100,7 +100,8 @@ public class GreyLady : Controller
     protected override void OnMoveStart(Directions direction)
     {
         //Debug.Log(DirectionToString(direction) + " == " + GetAdjustedDirection(direction));
-        UIManager.Instance.SetUIText(DirectionToString(direction) + " Sound");
+        //UIManager.Instance.SetUIText(DirectionToString(direction) + " Sound");
+        UIManager.Instance.SetUIText(DirectionToString(direction));
         if (!_playNotesFirst)
         {
             string clipName = AudioManager.Instance.GetClipNameFromDirection(direction);
@@ -128,7 +129,7 @@ public class GreyLady : Controller
         _currentRelativeDirection = RelativeDirections.FORWARD;
         _canMove = true;
         _waitingForPlayerToPushGo = true;
-        UIManager.Instance.SetInputText("Press Space to have the Grey Lady show the notes");
+        UIManager.Instance.SetInputText("Press Space When Ready");
 
         if (_playNotesFirst)
         {

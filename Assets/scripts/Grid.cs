@@ -182,6 +182,9 @@ public class Grid : MonoBehaviour
                 float r = 1.0f;
                 float g = 1.0f;
                 float b = 1.0f;
+                //float r = spriteColour.r;
+                //float g = spriteColour.g;
+                //float b = spriteColour.b;
                 spriteRenderer.color = new Color(r, g, b, 1.0f);
             }
         }
