@@ -67,6 +67,26 @@ public class Player2Controller : Controller
 
     }
 
+    protected override void Move()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        _newPosition = Vector3.zero;
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveUp();
+        } else if (Input.GetKeyDown(KeyCode.A))
+        {
+            MoveDiagonallyLeftUp();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            MoveDiagonallyRightUp();
+
+        }
+      
+    }
 
 
     protected override void OnMoveStart(Directions direction)
@@ -162,6 +182,24 @@ public class Player2Controller : Controller
 
         string clipName = AudioManager.Instance.GetClipNameFromDirection(direction);
         AudioManager.Instance.Play(clipName);
+    }
+
+    public void Fall()
+    {
+
+    }
+    IEnumerator Falling ()
+    {
+        float timeFalling = 0.5f;
+        _audio.UnPause();
+        while (timeFalling > 0.0f)
+        {
+
+            timeFalling -= Time.deltaTime;
+            _audio.volume = Mathf.Lerp(0.0f, 1.0f, ((0.5f - timeFalling) * 4.0f));
+            yield return null;
+
+        }
     }
     private void OnPlayerLost()
     {
