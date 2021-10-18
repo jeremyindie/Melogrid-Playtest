@@ -21,6 +21,12 @@ public class MainMenu : MonoBehaviour
     public ColourChanges SpaceTextColour;
     public ColourChanges BackgroundColour;
 
+    public AudioSource HappyMenuMusic;
+    public AudioSource SadMenuMusic;
+    private float FadeSpeed = 0.5f;
+    private bool Fade01;
+    private bool Fade02;
+
     public Button StartGameButton;
     public Button ExitGameButton;
 
@@ -43,7 +49,8 @@ public class MainMenu : MonoBehaviour
         ExitTextColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
         MenuDrawingColour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
 
-        //SceneManager.LoadScene("prototype 2");
+        //Audio
+        Fade01 = true;
     }
 
     public void OnQuitButton()
@@ -53,6 +60,18 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
+        //Audio Events
+        if(Fade01 == true && Fade02 == false)
+        {
+            HappyMenuMusic.volume -= Time.deltaTime * FadeSpeed;
+            SadMenuMusic.volume += Time.deltaTime * FadeSpeed;
+        }
+        else if (Fade02)
+        {
+            SadMenuMusic.volume -= Time.deltaTime * FadeSpeed;
+        }
+
+        //Visual Events
         if(StoryPhase == 0 && MenuDrawingColour.ColourLerp >= 1)
         {
             Story01Colour.ColourFadeType = ColourChanges.FadeType.FadeToColour;
@@ -125,6 +144,7 @@ public class MainMenu : MonoBehaviour
             }
             else if (Story03Colour.ColourLerp >= 1 && Input.GetKeyDown(KeyCode.Space))
             {
+                Fade02 = true;
                 Story04Colour.EndColour = new Color(0, 0, 0, 0);
                 Story04Colour.IsReset = false;
                 SpaceTextColour.EndColour = new Color(0, 0, 0, 0);
