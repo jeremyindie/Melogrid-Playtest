@@ -112,7 +112,13 @@ TextureImporter:
     second: Bench
   - first:
       213: 4979494300993695607
-    second: EndGameScene
+    second: CastleP_1
+  - first:
+      213: 602806758454893740
+    second: CastleP_2
+  - first:
+      213: 6864484749363150729
+    second: CastleP_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1336,15 +1342,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EndGameScene
+      name: CastleP_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 96
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 208
+        y: 350
+        width: 16
+        height: 50
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1352,6 +1358,48 @@ TextureImporter:
       bones: []
       spriteID: 77fafcb2fa7ba1540800000000000000
       internalID: 4979494300993695607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CastleP_2
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 350
+        width: 16
+        height: 50
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac98e19d899d5800800000000000000
+      internalID: 602806758454893740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CastleP_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 350
+        width: 16
+        height: 50
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f70eb828c834f50800000000000000
+      internalID: 6864484749363150729
       vertices: []
       indices: 
       edges: []

@@ -303,6 +303,11 @@ public class PlayerTurnManager : MonoBehaviour
     public void OnLossRestart()
     {
         _state = TurnState.CHAR1;
+       // _camera.transform.parent = null;
+        //test 
+        //_greyLady.transform.position = _char2.transform.position;
+        //_camera.transform.parent = _greyLady.transform;
+        //_char2.Fall();
         StartClockForward();
 
         //_char1.transform.position = new Vector3(-0.5f, 0.5f, 0f);
