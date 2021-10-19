@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4979494300993695607, guid: 858064cdbe25f4c47a48f5ca74fd861d, type: 3}
+  m_Sprite: {fileID: 8825501164841991184, guid: 858064cdbe25f4c47a48f5ca74fd861d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1268,23 +1268,15 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 65
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Music
-
-    "The Forest and the Trees" Kevin MacLeod (incompetech.com)
-
-    "Aquarium"
-    Kevin MacLeod (incompetech.com)
-
-    Licensed under Creative Commons: By Attribution
-    4.0 License
-
-    http://creativecommons.org/licenses/by/4.0/'
+  m_Text: "Music:\n\t\"The Forest and the Trees\" Kevin MacLeod (incompetech.com)\n\t\"Aquarium\"
+    Kevin MacLeod (incompetech.com)\n\tLicensed under Creative Commons: By Attribution
+    4.0 License\n\thttp://creativecommons.org/licenses/by/4.0/"
 --- !u!222 &1510256502
 CanvasRenderer:
   m_ObjectHideFlags: 0
