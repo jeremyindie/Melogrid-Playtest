@@ -29,7 +29,8 @@ public class Player2Controller : Controller
     private Sprite _uiFail;
     [SerializeField]
     private bool _enableUICircles = false;
-
+    [SerializeField]
+    private GameObject _testVideo; 
     [SerializeField]
     private Bench _bench;
 
@@ -188,20 +189,33 @@ public class Player2Controller : Controller
 
     public void Fall()
     {
-
+        StartCoroutine(Falling());
     }
     IEnumerator Falling ()
     {
-        float timeFalling = 0.5f;
-        _audio.UnPause();
+        Grid.Instance.DisableTiles();
+        float timeFalling = 1.0f;
+        float growthAmount = 4;
+
         while (timeFalling > 0.0f)
         {
-
+            _testVideo.transform.localScale += Vector3.one * growthAmount * Time.deltaTime;
             timeFalling -= Time.deltaTime;
-            _audio.volume = Mathf.Lerp(0.0f, 1.0f, ((0.5f - timeFalling) * 4.0f));
+            //_testVideo.transform.Rotate(transform.forward, 360 * Time.deltaTime);
             yield return null;
 
         }
+        timeFalling = 1.0f;
+
+        while (timeFalling > 0.0f)
+        {
+            _testVideo.transform.localScale -= Vector3.one * growthAmount * Time.deltaTime;
+            timeFalling -= Time.deltaTime;
+            //_testVideo.transform.Rotate(transform.forward, 360 * Time.deltaTime);
+            yield return null;
+
+        }
+        Grid.Instance.EnableTiles();
     }
     private void OnPlayerLost()
     {
@@ -229,7 +243,7 @@ public class Player2Controller : Controller
     private void DisableUI()
     {
         int numberOfUINotes = Mathf.Min(_uiForCheckingTheMoves.Count, _numberOfCorrectMovesNeeded);
-        for (int i = 0; i < numberOfUINotes; i++)
+        for (int i = _uiForCheckingTheMoves.Count - numberOfUINotes; i < _uiForCheckingTheMoves.Count; i++)
         {
             _uiForCheckingTheMoves[i].enabled = false;
         }
@@ -239,7 +253,7 @@ public class Player2Controller : Controller
     {
         int numberOfUINotes = Mathf.Min(_uiForCheckingTheMoves.Count, _numberOfCorrectMovesNeeded);
 
-        for (int i = 0; i < numberOfUINotes; i++)
+        for (int i = _uiForCheckingTheMoves.Count - numberOfUINotes; i < _uiForCheckingTheMoves.Count; i++)
         {
             _uiForCheckingTheMoves[i].enabled = true;
             _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
@@ -250,7 +264,7 @@ public class Player2Controller : Controller
 
     private void UpdateUI()
     {
-        _uiForCheckingTheMoves[_correctMoves].sprite = _uiSuccess;
+        _uiForCheckingTheMoves[_uiForCheckingTheMoves.Count - 1 - _numberOfCorrectMovesNeeded + _correctMoves].sprite = _uiSuccess;
     }
 
 

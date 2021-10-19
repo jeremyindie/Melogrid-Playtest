@@ -190,4 +190,29 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void DisableTiles()
+    {
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
+        {
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
+            {
+                SpriteRenderer spriteRenderer = _tileArray[i, j].GetComponent<SpriteRenderer>();
+                spriteRenderer.enabled = false;
+            }
+        }
+
+    }
+
+    public void EnableTiles()
+    {
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
+        {
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
+            {
+                SpriteRenderer spriteRenderer = _tileArray[i, j].GetComponent<SpriteRenderer>();
+                spriteRenderer.enabled = true;
+            }
+        }
+    }
+
 }

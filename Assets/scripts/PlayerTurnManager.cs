@@ -303,6 +303,7 @@ public class PlayerTurnManager : MonoBehaviour
     }
     public void OnLossRestart()
     {
+        _char2.Fall();
         _state = TurnState.CHAR1;
        // _camera.transform.parent = null;
         //test 
