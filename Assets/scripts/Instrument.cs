@@ -13,7 +13,10 @@ public class Instrument : MonoBehaviour
     [SerializeField]
     private Sounder _wrongSound;
     private List<Sounder> _sounds;
-
+    [SerializeField]
+    private AudioSource _audio;
+    [SerializeField]
+    private AudioClip _pickupSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,8 @@ public class Instrument : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         AudioManager.Instance.SetNewInstrument(this);
+        _audio.clip = _pickupSound;
+        _audio.Play();
     }
 
     public Sounder GetUpSound()
