@@ -419,7 +419,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &137790612
 MonoBehaviour:
@@ -606,7 +606,7 @@ MonoBehaviour:
   StartColour: {r: 1, g: 1, b: 1, a: 1}
   EndColour: {r: 0.3529412, g: 0.47058824, b: 0.54901963, a: 1}
   ColourLerp: 0
-  ColourChangeSpeed: 1
+  ColourChangeSpeed: 2
   ColourFadeType: 0
   IsReset: 0
 --- !u!223 &245126290
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   StartColour: {r: 1, g: 1, b: 1, a: 1}
   EndColour: {r: 0.3529412, g: 0.47058824, b: 0.54901963, a: 1}
   ColourLerp: 0
-  ColourChangeSpeed: 1
+  ColourChangeSpeed: 2
   ColourFadeType: 0
   IsReset: 0
 --- !u!1 &1213215687
@@ -2004,7 +2004,7 @@ MonoBehaviour:
   StartColour: {r: 1, g: 1, b: 1, a: 1}
   EndColour: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   ColourLerp: 0
-  ColourChangeSpeed: 1
+  ColourChangeSpeed: 2
   ColourFadeType: 0
   IsReset: 0
 --- !u!1 &1643291521

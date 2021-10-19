@@ -174,7 +174,7 @@ public class MainMenu : MonoBehaviour
             
             if(StringsColour.IsReset && StringsColour.ColourLerp >= 1)
             {
-                SceneManager.LoadScene("prototype 2");
+                SceneManager.LoadScene("Game");
             }
         }
     }
