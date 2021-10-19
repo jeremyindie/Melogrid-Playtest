@@ -42,6 +42,7 @@ public class Player1Controller : Controller
 
     public void IncreaseNumberOfMoves()
     {
+        if (_currentTurnLength < 11)
         _currentTurnLength++;
     }
     public override void StartTurn()
