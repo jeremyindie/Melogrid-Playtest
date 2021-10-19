@@ -39,6 +39,11 @@ public class Player1Controller : Controller
             Move();
         }
     }
+
+    public void IncreaseNumberOfMoves()
+    {
+        _currentTurnLength++;
+    }
     public override void StartTurn()
     {
         _moveNumber = 0;

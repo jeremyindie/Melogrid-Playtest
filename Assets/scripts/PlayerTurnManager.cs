@@ -215,6 +215,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _char2.SetActive(false);
         _clock.StartTimeRewind();
+        _char1.IncreaseNumberOfMoves();
     }
 
     IEnumerator Character1NarrativeMode(float time)

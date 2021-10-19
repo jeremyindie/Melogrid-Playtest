@@ -67,6 +67,8 @@ public class Player2Controller : Controller
 
     }
 
+
+
     protected override void Move()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -226,7 +228,8 @@ public class Player2Controller : Controller
     }
     private void DisableUI()
     {
-        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        int numberOfUINotes = Mathf.Min(_uiForCheckingTheMoves.Count, _numberOfCorrectMovesNeeded);
+        for (int i = 0; i < numberOfUINotes; i++)
         {
             _uiForCheckingTheMoves[i].enabled = false;
         }
@@ -234,7 +237,9 @@ public class Player2Controller : Controller
     }
     private void EnableUI()
     {
-        for (int i = 0; i < _uiForCheckingTheMoves.Count; i++)
+        int numberOfUINotes = Mathf.Min(_uiForCheckingTheMoves.Count, _numberOfCorrectMovesNeeded);
+
+        for (int i = 0; i < numberOfUINotes; i++)
         {
             _uiForCheckingTheMoves[i].enabled = true;
             _uiForCheckingTheMoves[i].sprite = _uiNotCompleted;
