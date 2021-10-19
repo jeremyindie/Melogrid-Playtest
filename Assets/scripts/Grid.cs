@@ -72,6 +72,7 @@ public class Grid : MonoBehaviour
     {
         newPosition -= new Vector3(0.5f, 0.5f, 0f);
         //moving to the right
+        Debug.Log("moving");
         if(moveDelta.x > 0)
         {
             for (int i = _darkSideTileMapDimention - 1; i >= 0; i--)
@@ -91,7 +92,7 @@ public class Grid : MonoBehaviour
                         }
                         _tileArray[i, j] = _tileArray[i - 1, j - 1];
                     }
-                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.up;
+                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1.5f) / 2 + .25f) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.up;
                 }
             }
 
@@ -120,7 +121,7 @@ public class Grid : MonoBehaviour
                         }
                     }
 
-                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                    _tileArray[i, j].transform.position = newPosition + (i - (_darkSideTileMapDimention - 1.5f) / 2 + .25f) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
                 }
             }
 
@@ -129,7 +130,17 @@ public class Grid : MonoBehaviour
 
     }
 
-
+    public void SetPositionsAtStartOfTurn(Vector3 centerPosition)
+    {
+        centerPosition -= new Vector3(0.5f, 0.5f, 0f);
+        for (int i = 0; i < _darkSideTileMapDimention; i++)
+        {
+            for (int j = 0; j < _darkSideTileMapDimention; j++)
+            {
+                _tileArray[i, j].transform.position = centerPosition + (i - (_darkSideTileMapDimention - 1.5f) / 2 + .25f) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+            }
+        }
+    }
     public void CreateTileArray(Vector3 centerPosition)
     {
         centerPosition -= new Vector3(0.5f, 0.5f, 0f);
@@ -138,7 +149,8 @@ public class Grid : MonoBehaviour
             for (int j = 0; j < _darkSideTileMapDimention; j++)
             {
                 _tileArray[i,j] = Instantiate(_tileList[Mathf.FloorToInt(Random.Range(0, _tileList.Count))]);
-                _tileArray[i, j].transform.position = centerPosition + (i - (_darkSideTileMapDimention - 1) / 2 + 1) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                _tileArray[i, j].transform.position = centerPosition + (i - (_darkSideTileMapDimention - 1.5f) / 2 + .25f) * _gridDimention * Vector3.right + (j - (_darkSideTileMapDimention - 1) / 2) * _gridDimention * Vector3.up;
+                Debug.Log("i:" + i + " j:" + j + _tileArray[i, j].transform.position);
             }
         }
     }

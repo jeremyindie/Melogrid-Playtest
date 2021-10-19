@@ -118,7 +118,8 @@ public class GreyLady : Controller
 
     public void RefreshTiles()
     {
-        Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
+        Grid.Instance.SetPositionsAtStartOfTurn(transform.position);
+       // Grid.Instance.MoveTileArray(transform.position, new Vector3(0.0f, 0.0f));
 
     }
 

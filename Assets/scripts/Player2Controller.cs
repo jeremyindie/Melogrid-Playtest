@@ -264,7 +264,7 @@ public class Player2Controller : Controller
 
     private void UpdateUI()
     {
-        _uiForCheckingTheMoves[_uiForCheckingTheMoves.Count - 1 - _numberOfCorrectMovesNeeded + _correctMoves].sprite = _uiSuccess;
+        _uiForCheckingTheMoves[_uiForCheckingTheMoves.Count - _numberOfCorrectMovesNeeded + _correctMoves].sprite = _uiSuccess;
     }
 
 
@@ -277,9 +277,9 @@ public class Player2Controller : Controller
 
     IEnumerator WrongNoteDisplay()
     {
-        _uiForCheckingTheMoves[_correctMoves].sprite = _uiFail;
+        _uiForCheckingTheMoves[_uiForCheckingTheMoves.Count - _numberOfCorrectMovesNeeded + _correctMoves].sprite = _uiFail;
         yield return new WaitForSeconds(.5f);
-        _uiForCheckingTheMoves[_correctMoves].sprite = _uiNotCompleted;
+        _uiForCheckingTheMoves[_uiForCheckingTheMoves.Count - _numberOfCorrectMovesNeeded + _correctMoves].sprite = _uiNotCompleted;
 
     }
 
