@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6406539578471062949}
   - component: {fileID: 6406539578471062945}
   m_Layer: 0
-  m_Name: Regular Choir
+  m_Name: Character 2 Choir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
