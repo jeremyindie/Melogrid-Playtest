@@ -24,9 +24,9 @@ public class NarrativeCheckpoint : MonoBehaviour
     {
         if (_isEndGame)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
         }
-        NarrativeManager.Instance.SetNarrativePoint(_narrativeIndex);
+        NarrativeManager.Instance.SetNarrativePoint(_narrativeIndex, _isEndGame);
         PlayerTurnManager.Instance.SetNarrativeReady();
     }
 

@@ -6,7 +6,10 @@ public class Bench : MonoBehaviour
 {
 
     [SerializeField]
-    private List<SpriteRenderer> _sprites; 
+    private List<SpriteRenderer> _sprites;
+
+    [SerializeField]
+    private Sprite _grave;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,13 @@ public class Bench : MonoBehaviour
         
     }
 
-
+    public void ChangeToGraves()
+    {
+        foreach (SpriteRenderer sprite in _sprites)
+        {
+            sprite.sprite = _grave;
+        }
+    }
     public void TurnOnSprites()
     {
         foreach(SpriteRenderer sprite in _sprites)

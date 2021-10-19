@@ -145,6 +145,11 @@ public class Player2Controller : Controller
         {
             DisableUI();
         }
+        if (PlayerTurnManager.Instance.GetIsEndGame())
+        {
+
+            _bench.GetComponent<Bench>().ChangeToGraves();
+        }
         _bench.transform.position = transform.position + transform.up * _movementDistance * (_numberOfCorrectMovesNeeded - _correctMoves) + new Vector3(0.25f, 0.5f);
         UIManager.Instance.SetUIText("Listen to the Melody");
     }
@@ -271,7 +276,14 @@ public class Player2Controller : Controller
 
     protected override void OnNarrativeEnd()
     {
-        PlayerTurnManager.Instance.StartClockBackward();
+        if (PlayerTurnManager.Instance.GetIsEndGame())
+        {
+            PlayerTurnManager.Instance.GoToEnding();
+        }
+        else
+        {
+            PlayerTurnManager.Instance.StartClockBackward();
+        }
     }
 
 

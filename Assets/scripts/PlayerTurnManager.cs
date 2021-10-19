@@ -33,9 +33,9 @@ public class PlayerTurnManager : MonoBehaviour
     //public bool ReleaseTheGrey;
     private bool _isFirstTurn;
     private bool _restartingFromLoss; 
-    private bool _isPlayerOnesTurn; 
+    private bool _isPlayerOnesTurn;
 
-
+    private bool _isEndGame; 
     public static PlayerTurnManager Instance
     {
         get
@@ -56,7 +56,7 @@ public class PlayerTurnManager : MonoBehaviour
     {
         _instance = this;
         DontDestroyOnLoad(gameObject);
-
+        _isEndGame = false;
     }
     private void Start()
     {
@@ -360,6 +360,23 @@ public class PlayerTurnManager : MonoBehaviour
     public int GetLengthOfMelody()
     {
         return _pathList.Count; 
+    }
+
+    public void SetIsEndGame()
+    {
+        Debug.Log("Setting Endgame");
+        _isEndGame = true;
+    }
+
+    public bool GetIsEndGame()
+    {
+        return _isEndGame;
+    }
+
+    public void GoToEnding()
+    {
+        Debug.Log("Going to the ending");
+       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
     }
 
 }

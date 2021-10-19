@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeIndex: 4
-  _isEndGame: 0
+  _isEndGame: 1
 --- !u!61 &103054163
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeIndex: 8
-  _isEndGame: 0
+  _isEndGame: 1
 --- !u!61 &505019962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2316,41 +2316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 1827845602}
   _pressSpaceText: {fileID: 1523062700}
-  _forTesting:
-  - He arrived at the foot of a mountain. There sat a squadron of knights brooding
-    over a way to lower the guard of the great dragon, terror of all men and sheep.
-    Seeing the knights struggle, the young man offered his help which they accepted
-    gladly.  With this, the young man climbed the mountain to greet the mother dragon,
-    offering her wisdoms and stories of his travels.  The dragon drifts to sleep,
-    promising in her heart to one day let her child hear of these tales, not knowing
-    that she would never wake to do so.  The knights thanked the young man for saving
-    the kingdom from the fearsome dragon and gave him his reward in the form of a
-    decorated box and a map.
-  - Little did he know that the majestic beast was the last of her kind. Born from
-    hurricanes  of fire, created to rule the skies and to inspire, she returns to
-    the winds as a breeze of bittersweet memories.
-  - "After descending the mountain, the young man strolled towards the sound of the
-    rivers and woods.  There stood a man plagued with incessant worries.  The eldest
-    prince was in love with a girl that loved him back. He intends to ask for her
-    hand in marriage, but he could not find the words.  Seeing the prince struggle,
-    the young man gave him the box he found earned from the dragon\u2019s cave. When
-    the lid was lifted, beautiful music from another world played. They both knew,
-    it was the perfect gift to start the  Conversation."
-  - Like many fires, fires of the heart can keep warm, but they can also burn. Some
-    seek to control it, some let it turn into a forest fire and others try to stamp
-    it out no matter the cost.
-  - 'The path which the young man chose after descending the mountain led him towards
-    the villages. Before entering the village, he was stopped by a man in well decorated
-    clothes. He was curious of the traveller and his reasons to visit such a small
-    village, so he invited the young man to a drink. They shared their travel stories
-    and past experiences until the sky turned pink.  Looking at the rise of tomorrow,
-    man said to the young man: "You know what I see? The same day as yesterday. A
-    day where the farmers slave away their lives for land that isn''t theirs." The
-    young man looked and answered: "I see a beautiful sunrise. If everyone were to
-    do their  part, the world might just be a better place." With those  words, he
-    left and continued his journey.'
-  - Inspired by the sunrise and the young man's words, the man  goes his own way.
-    Maybe he'd right a book on the topics that emerged from last night's conversations.
+  _forTesting: []
 --- !u!1001 &676477317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2550,6 +2516,7 @@ MonoBehaviour:
   - {fileID: 304692542}
   - {fileID: 715689884}
   - {fileID: 408018250}
+  _grave: {fileID: 21300000, guid: 7a2caf4155303bf4582965c33186628f, type: 3}
 --- !u!1 &807051647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,7 +2926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeIndex: 10
-  _isEndGame: 0
+  _isEndGame: 1
 --- !u!61 &850819551
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3159,7 +3126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1312816278}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &871940643
 SpriteRenderer:
@@ -3510,6 +3477,7 @@ Transform:
   m_Children:
   - {fileID: 519420032}
   - {fileID: 1089006430}
+  - {fileID: 1752405600}
   - {fileID: 1079053336}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3873,7 +3841,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 956549517}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1079053337
 SpriteRenderer:
@@ -4187,7 +4155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140689947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.41, y: 10.67, z: -12.458731}
+  m_LocalPosition: {x: 2, y: 5.9, z: -12.458731}
   m_LocalScale: {x: 9.25, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1417172115}
@@ -4425,8 +4393,8 @@ Transform:
   m_Children:
   - {fileID: 2146867209}
   - {fileID: 1946873645}
-  - {fileID: 871940642}
   - {fileID: 896401388}
+  - {fileID: 871940642}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
@@ -4632,7 +4600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
       propertyPath: m_LocalScale.x
@@ -4652,7 +4620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 0.29999924
       objectReference: {fileID: 0}
     - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5176,7 +5144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _narrativeIndex: 16
-  _isEndGame: 0
+  _isEndGame: 1
 --- !u!61 &1640144541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5346,6 +5314,92 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1752405599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 956549517}
+    m_Modifications:
+    - target: {fileID: 3319230121293694149, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5566038
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694149, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_Color.g
+      value: 0.47146142
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694149, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4069509
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694154, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_Name
+      value: Test_Video (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.060000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.13999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+--- !u!4 &1752405600 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3319230121293694155, guid: a7abfe9f4e2ee304ea34aecde6194d51, type: 3}
+  m_PrefabInstance: {fileID: 1752405599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1768937134
 GameObject:
   m_ObjectHideFlags: 0

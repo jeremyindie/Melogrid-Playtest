@@ -62,9 +62,13 @@ public class NarrativeManager : MonoBehaviour
     {
         
     }
-    public void SetNarrativePoint(int narrativePoint)
+    public void SetNarrativePoint(int narrativePoint, bool isEndGame)
     {
         _narrativePoint = narrativePoint;
+        if (isEndGame)
+        {
+            PlayerTurnManager.Instance.SetIsEndGame();
+        }
     }
     public void IncrementNarrativePoint()
     {
