@@ -123,6 +123,7 @@ public class Controller : MonoBehaviour
         }
         if (_playerHasLost)
         {
+            _playerHasLost = false;
             PlayerTurnManager.Instance.OnLossRestart();
         }
     }
