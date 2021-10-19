@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5157282681040139861}
   - component: {fileID: 2610900517965329498}
   - component: {fileID: 601093587934683823}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TreeL_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6379107308711915545}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
