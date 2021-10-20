@@ -117,15 +117,15 @@ public class Controller : MonoBehaviour
     private void InteractWithUI()
     {
         ExitUIScreen();
-        if (PlayerTurnManager.Instance.IsInNarrativeScreen())
-        {
-            OnNarrativeEnd();
-        }
         if (_playerHasLost)
         {
             _playerHasLost = false;
             PlayerTurnManager.Instance.OnLossRestart();
+        } else if (PlayerTurnManager.Instance.IsInNarrativeScreen())
+        {
+            OnNarrativeEnd();
         }
+       
     }
 
 

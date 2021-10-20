@@ -280,7 +280,7 @@ public class PlayerTurnManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         _char2.EnterUIScreen();
         NarrativeManager.Instance.DisplayCustomScreen("Press Space to Retry the Melody");
-        _nextNarrativeReady = false;
+        //_nextNarrativeReady = false;
         _restartingFromLoss = true;
         _camera.transform.rotation *= Quaternion.Euler(0, 0, 180);
 
@@ -304,6 +304,7 @@ public class PlayerTurnManager : MonoBehaviour
     public void OnLossRestart()
     {
         _char2.Fall();
+        _char2.SetActive(false);
         _state = TurnState.CHAR1;
        // _camera.transform.parent = null;
         //test 
