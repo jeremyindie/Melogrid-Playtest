@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/prototype 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/prototype 2.unity
     guid: eb770d4c1df189c428c09f30d87bdca5
   - enabled: 1
