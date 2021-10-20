@@ -89,7 +89,9 @@ public class Controller : MonoBehaviour
         } 
         else if (_canMove)
         {
-
+            if (Input.GetKeyDown(KeyCode.Minus)) {
+                _originalPosition = transform.position;
+            }
             Move();
         }
         else if (_isLerpingToNewPosition)
