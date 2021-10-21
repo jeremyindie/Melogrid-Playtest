@@ -127,10 +127,8 @@ public class NarrativeManager : MonoBehaviour
 
             );
         //3
-        _forTesting.Add("         Firestorm"
-             + "Upon returning to his dwelling, the young"
-             + "half - dragon found nothing. He knew. He descended."
-             + "He ravaged. He burnt. All turned to dust."
+        _forTesting.Add("No matter where he ran, he cannot run away from what has already been done, but his future has yet to be determined."
+
              );
 
         //4 
@@ -167,7 +165,7 @@ public class NarrativeManager : MonoBehaviour
              + "He sits beside the exhausted young dragon,"
              + "waiting for sunrise to promise another day."
      );
-        
+
 
         //6
 
@@ -228,11 +226,11 @@ public class NarrativeManager : MonoBehaviour
 + "kingdom have been as happy as they were under the second"
 + "prince's rule? What if indeed."
 );
-       
 
 
 
-            //12
+
+        //12
 
 
         _forTesting.Add("The path which the young man chose after descending the mountain led him towards the villages. Before entering the village, he was stopped by a man " +
@@ -294,31 +292,44 @@ public class NarrativeManager : MonoBehaviour
                    "He sang of a lady in gray, forever changing." +
                    "He sang of blindness, that of love and hate." +
                    "His last song was that of freedom and the pursuit of" +
-                   "happiness." 
+                   "happiness."
 
                    );
 
 
 
-                    //17
+        //17
 
 
-                    _forTesting.Add(" Enjoying the next bottle of wine, the plump bard found himself" +
-                   "a drinking companion.They walked and wandered the world." +
-                   "They watched it change under the dominion of the grey lady." +
-                   "They watched as she drew lines on their faces until they fell" +
-                   "into deep sleep forever." 
+        _forTesting.Add(" Enjoying the next bottle of wine, the plump bard found himself" +
+       "a drinking companion.They walked and wandered the world." +
+       "They watched it change under the dominion of the grey lady." +
+       "They watched as she drew lines on their faces until they fell" +
+       "into deep sleep forever."
 
 
-                   );
-       
- 
+       );
 
 
+        //18
 
 
+        _forTesting.Add("Silence"
+
+
+       );
+
+        //19
+
+        _forTesting.Add("     Firestorm"
+             + "Upon returning to his dwelling, the young"
+             + "half - dragon found nothing. He knew. He descended."
+             + "He ravaged. He burnt. All turned to dust.");
 
 
     }
+
+
+    
 
 }
